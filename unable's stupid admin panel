@@ -605,7 +605,34 @@ newscriptbutton("infinite yield", function()
 end)
 
 newscriptbutton("chat bypasser", function()
-	print("Script 5 executed!")
+	local RunService = game:GetService("RunService")
+	local Players = game:GetService("Players")
+	local LocalPlayer = Players.LocalPlayer
+
+	local function setNetworkOwnership()
+		for _, part in ipairs(workspace:GetDescendants()) do
+			if part:IsA("BasePart") and part:IsDescendantOf(LocalPlayer.Character or workspace) then
+				pcall(function()
+					part:SetNetworkOwner(LocalPlayer)
+				end)
+			end
+		end
+	end
+
+	local function bypassFilter()
+		while true do
+			task.wait(0.1)
+			pcall(setNetworkOwnership)
+			print("Attempting to force network ownership...")
+		end
+	end
+
+	LocalPlayer.CharacterAdded:Connect(function()
+		task.wait(1) -- Small delay for character loading
+		pcall(setNetworkOwnership)
+	end)
+
+	bypassFilter()
 end)
 
 -- Table to store buttons
