@@ -1,0 +1,1035 @@
+--[[---------------------------------------------------------------------------------------------------------------------------
+  __   __     ______     __  __     __     ______     __  __     ______    
+ /\ "-.\ \   /\  __ \   /\_\_\_\   /\ \   /\  __ \   /\ \/\ \   /\  ___\   
+ \ \ \-.  \  \ \ \/\ \  \/_/\_\/_  \ \ \  \ \ \/\ \  \ \ \_\ \  \ \___  \  
+  \ \_\\"\_\  \ \_____\   /\_\/\_\  \ \_\  \ \_____\  \ \_____\  \/\_____\ 
+   \/_/ \/_/   \/_____/   \/_/\/_/   \/_/   \/_____/   \/_____/   \/_____/
+   
+   Made by unable -- unable's stupid admin panel >.<
+   
+---------------------------------------------------------------------------------------------------------------------------]]--
+
+wait(0.1) local unable = {}
+   
+---------------------------------------------------------------------------------------------------------------------------]]--
+
+unable["test game"] = 118022198489171
+unable["workspace"] = game.Workspace
+unable["user input service"] = game:GetService("UserInputService")
+unable["players"] = game:GetService("Players")
+unable["local player"] = unable["players"].LocalPlayer
+unable["mouse"] = unable["local player"]:GetMouse()
+unable["player gui"] = unable["local player"]:FindFirstChildWhichIsA("PlayerGui")
+unable["user input service"] = game:GetService("UserInputService")
+unable["tween service"] = game:GetService("TweenService")
+unable["http service"] = game:GetService("HttpService")
+unable["marketplace service"] = game:GetService("MarketplaceService")
+unable["run service"] = game:GetService("RunService")
+unable["teleport service"] = game:GetService("TeleportService")
+unable["starter gui"] = game:GetService("StarterGui")
+unable["gui service"] = game:GetService("GuiService")
+unable["lighting"] = game:GetService("Lighting")
+unable["context action service"] = game:GetService("ContextActionService")
+unable["network client"] = game:GetService("NetworkClient")
+unable["replicated storage"] = game:GetService("ReplicatedStorage")
+unable["group service"] = game:GetService("GroupService")
+unable["pathfinding service"] = game:GetService("PathfindingService")
+unable["sound service"] = game:GetService("SoundService")
+unable["teams"] = game:GetService("Teams")
+unable["starter player"] = game:GetService("StarterPlayer")
+unable["insert service"] = game:GetService("InsertService")
+unable["chat"] = game:GetService("Chat")
+unable["proximity prompt service"] = game:GetService("ProximityPromptService")
+unable["stats"] = game:GetService("Stats")
+unable["material service"] = game:GetService("MaterialService")
+unable["avatar editor service"] = game:GetService("AvatarEditorService")
+unable["text chat service"] = game:GetService("TextChatService")
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["screen gui"] = Instance.new("ScreenGui")
+unable["screen gui"].Name = ":3"
+unable["screen gui"].ResetOnSpawn = false
+
+if game.PlaceId == unable["test game"] then
+	unable["screen gui"].Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+else
+	unable["screen gui"].Parent = game:GetService("CoreGui")
+end
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["default background color"] = Color3.fromHex("252539")
+unable["default border color"] = Color3.fromHex("4051ED")
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["click sound"] = Instance.new"Sound"
+unable["click sound"].SoundId = "rbxassetid://226892749"
+unable["click sound"].Parent = unable["workspace"]
+unable["click sound"].Volume = 0.2
+
+unable["click sound 2"] = Instance.new"Sound"
+unable["click sound 2"].SoundId = "rbxassetid://7148585764"
+unable["click sound 2"].Parent = unable["workspace"]
+unable["click sound 2"].Volume = 0.2
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["toggle interface visibility button"] = Instance.new("TextButton")
+
+unable["toggle interface visibility button"].Size = UDim2.new(0, 48, 0, 48)
+unable["toggle interface visibility button"].Position = UDim2.new(0, 0, 10, 0)
+
+unable["toggle interface visibility button"].BackgroundColor3 = unable["default background color"]
+
+unable["toggle interface visibility button"].BorderColor3 = unable["default border color"]
+unable["toggle interface visibility button"].BorderSizePixel = 1
+
+unable["toggle interface visibility button"].TextColor3 = unable["default border color"]
+unable["toggle interface visibility button"].Font = Enum.Font.Code
+unable["toggle interface visibility button"].TextSize = 20
+unable["toggle interface visibility button"].TextScaled = false
+unable["toggle interface visibility button"].Text = ">.<"
+unable["toggle interface visibility button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["toggle interface visibility button"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["toggle interface visibility button text padding"] = Instance.new("UIPadding")
+unable["toggle interface visibility button text padding"].PaddingTop = UDim.new(0, 20)
+unable["toggle interface visibility button text padding"].Parent = unable["textbox"]
+
+unable["toggle interface visibility button"].Parent = unable["screen gui"]
+unable["toggle interface visibility button"].ZIndex = 50
+
+function movebutton()
+	local screenWidth = game:GetService("Workspace").CurrentCamera.ViewportSize.X
+
+	local buttonWidth = 48
+
+	local centerX = (screenWidth - buttonWidth) / 2
+	local topMargin = 20
+	local centerY = topMargin
+
+	unable["toggle interface visibility button"].Position = UDim2.new(0, centerX, 0, centerY - 150)
+
+	local offsetY = 150
+	local targetPosition = UDim2.new(0, centerX, 0, centerY - offsetY)
+
+	local tweenInfoUp = TweenInfo.new(0, Enum.EasingStyle.Back, Enum.EasingDirection.Out, 0, false, 0)
+
+	local tweenUp = unable["tween service"]:Create(unable["toggle interface visibility button"], tweenInfoUp, {Position = targetPosition})
+
+	local function moveButtonBack()
+		local tweenInfoDown = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
+
+		local tweenDown = unable["tween service"]:Create(unable["toggle interface visibility button"], tweenInfoDown, {Position = UDim2.new(0, centerX, 0, centerY)})
+
+		tweenDown:Play()
+	end
+
+	unable["toggle interface visibility button"].Visible = true
+	tweenUp:Play()
+
+	tweenUp.Completed:Wait()
+	moveButtonBack()
+end
+
+unable["tivb border"] = Instance.new("Frame")
+unable["tivb border"].Size = UDim2.new(0, 50, 0, 50)
+unable["tivb border"].Position = UDim2.new(-2E-2, 0, -2E-2, 0)
+unable["tivb border"].Parent = unable["toggle interface visibility button"]
+unable["tivb border"].BorderSizePixel = 0
+
+function dragbutton()
+	local frame = unable["toggle interface visibility button"]
+	local dragToggle 	
+	local dragSpeed = 0.25
+	local dragStart 	
+	local startPos 
+
+	local function updatebuttoninput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		unable["tween service"]:Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+
+	unable["user input service"].InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updatebuttoninput(input)
+			end
+		end
+	end)
+end
+
+function addgradient()
+	local gradient = Instance.new("UIGradient")
+	gradient.Color =
+		ColorSequence.new {
+			ColorSequenceKeypoint.new(0, Color3.fromHex("4051ED")),
+			ColorSequenceKeypoint.new(0.5, Color3.fromHex("252539")),
+			ColorSequenceKeypoint.new(1, Color3.fromHex("4051ED"))
+		}
+	gradient.Parent = unable["tivb border"]
+
+	local rotationSpeed = 1
+	task.spawn(
+		function()
+			while true do
+				gradient.Rotation = (gradient.Rotation + rotationSpeed) % 360
+				task.wait(0.03)
+			end
+		end
+	)
+end
+
+dragbutton()
+addgradient()
+movebutton()
+
+unable["toggle interface visibility button"].MouseButton1Click:Connect(
+	function()
+		unable["top bar"].Visible = not unable["top bar"].Visible
+		unable["click sound"]:Play() unable["click sound 2"]:Play()
+	end
+)
+
+--[[---------------------------------------------------------------------------------------------------------------------------
+
+frame template
+
+unable["frame"].Size = UDim2.new(1, 0, 1, 0)
+unable["frame"].Position = UDim2.new(1, 0, 1, 0)
+
+unable["frame"].BackgroundColor3 = unable["default background color"]
+
+unable["frame"].BorderColor3 = unable["default border color"]
+unable["frame"].BorderSizePixel = 1
+
+unable["frame"].Parent = unable["screen gui"]
+unable["frame"].ZIndex = 1
+
+text box / label / button template
+
+unable["textbox"].Size = UDim2.new(1, 0, 1, 0)
+unable["textbox"].Position = UDim2.new(1, 0, 1, 0)
+
+unable["textbox"].BackgroundColor3 = unable["default background color"]
+
+unable["textbox"].BorderColor3 = unable["default border color"]
+unable["textbox"].BorderSizePixel = 1
+
+unable["textbox"].TextColor3 = unable["default border color"]
+unable["textbox"].TextStrokeTransparency = 1
+unable["textbox"].TextStrokeColor3 = unable["default background color"]
+unable["textbox"].Font = Enum.Font.Code
+unable["textbox"].TextSize = 20
+unable["textbox"].TextScaled = false
+unable["textbox"].Text = "text"
+unable["textbox"].TextXAlignment = Enum.TextXAlignment.Center
+unable["textbox"].TextYAlignment = Enum.TextYAlignment.Center
+	
+unable["textboxpadding"] = Instance.new("UIPadding")
+unable["textboxpadding"].PaddingLeft = UDim.new(0, 1)
+unable["textboxpadding"].PaddingRight = UDim.new(0, 1)
+unable["textboxpadding"].Parent = unable["textbox"]
+
+unable["textbox"].Parent = unable["screen gui"]
+unable["textbox"].ZIndex = 1
+
+---------------------------------------------------------------------------------------------------------------------------]]--
+
+unable["top bar"] = Instance.new("TextLabel")
+
+unable["top bar"].Size = UDim2.new(0, 400, 0, 26)
+
+unable["top bar"].BackgroundColor3 = unable["default background color"]
+
+unable["top bar"].BorderColor3 = unable["default border color"]
+unable["top bar"].BorderSizePixel = 1
+
+unable["top bar"].TextColor3 = unable["default border color"]
+unable["top bar"].Font = Enum.Font.Code
+unable["top bar"].TextSize = 15
+unable["top bar"].TextScaled = false
+unable["top bar"].Text = "unable's stupid admin panel >.<"
+unable["top bar"].TextXAlignment = Enum.TextXAlignment.Center
+unable["top bar"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["top bar text padding"] = Instance.new("UIPadding")
+unable["top bar text padding"].PaddingLeft = UDim.new(0, 0)
+unable["top bar text padding"].PaddingRight = UDim.new(0, 110)
+unable["top bar text padding"].Parent = unable["top bar"]
+
+unable["top bar"].Parent = unable["screen gui"]
+unable["top bar"].ZIndex = 19
+unable["top bar"].Visible = false
+
+unable["top bar icon"] = Instance.new("ImageLabel")
+
+unable["top bar icon"].Size = UDim2.new(0, 18, 0, 18)
+unable["top bar icon"].Position = UDim2.new(0, 4, 0, 4.7)
+
+unable["top bar icon"].BackgroundColor3 = unable["default background color"]
+unable["top bar icon"].BackgroundTransparency = 0
+
+unable["top bar icon"].BorderColor3 = unable["default border color"]
+unable["top bar icon"].BorderSizePixel = 0
+
+unable["top bar icon"].Image = "rbxassetid://11677094284"
+unable["top bar icon"].ImageColor3 = unable["default border color"]
+
+unable["top bar icon"].Parent = unable["top bar"]
+unable["top bar icon"].ZIndex = 20
+
+function centertopbar()
+	local screenWidth = game:GetService"Workspace".CurrentCamera.ViewportSize.X
+	local screenHeight = game:GetService"Workspace".CurrentCamera.ViewportSize.Y
+
+	local frameWidth = 400
+	local frameHeight = 276
+	local centerX = (screenWidth - frameWidth) / 2
+	local centerY = (screenHeight - frameHeight) / 2 - 61
+	
+	unable["top bar"].Position = UDim2.new(0, centerX, 0, centerY)
+end
+
+function dragtopbar()
+	local frame = unable["top bar"]
+	local dragToggle 	
+	local dragSpeed = 0.25
+	local dragStart 	
+	local startPos 
+
+	local function updatebuttoninput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		unable["tween service"]:Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+
+	unable["user input service"].InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updatebuttoninput(input)
+			end
+		end
+	end)
+end
+
+centertopbar()
+dragtopbar()
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["top bar close button"] = Instance.new("TextButton")
+
+unable["top bar close button"].Size = UDim2.new(0, 18, 0, 18)
+unable["top bar close button"].Position = UDim2.new(0, 378, 0, 4.7)
+
+unable["top bar close button"].BackgroundColor3 = unable["default background color"]
+
+unable["top bar close button"].BorderColor3 = unable["default border color"]
+unable["top bar close button"].BorderSizePixel = 1
+
+unable["top bar close button"].TextColor3 = unable["default border color"]
+unable["top bar close button"].Font = Enum.Font.Code
+unable["top bar close button"].TextSize = 20
+unable["top bar close button"].TextScaled = false
+unable["top bar close button"].Text = "x"
+unable["top bar close button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["top bar close button"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["top bar close button"].Parent = unable["top bar"]
+unable["top bar close button"].ZIndex = 20
+
+unable["top bar close button text padding"] = Instance.new("UIPadding")
+unable["top bar close button text padding"].PaddingTop = UDim.new(0, -5)
+unable["top bar close button text padding"].Parent = unable["top bar close button"]
+
+unable["top bar close button"].MouseButton1Click:Connect(
+	function()
+		unable["top bar"].Visible = not unable["top bar"].Visible
+		unable["click sound"]:Play() unable["click sound 2"]:Play()
+	end
+)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["top bar minimize button"] = Instance.new("TextButton")
+
+unable["top bar minimize button"].Size = UDim2.new(0, 18, 0, 18)
+unable["top bar minimize button"].Position = UDim2.new(0, 354, 0, 4.7)
+
+unable["top bar minimize button"].BackgroundColor3 = unable["default background color"]
+
+unable["top bar minimize button"].BorderColor3 = unable["default border color"]
+unable["top bar minimize button"].BorderSizePixel = 1
+
+unable["top bar minimize button"].TextColor3 = unable["default border color"]
+unable["top bar minimize button"].Font = Enum.Font.Code
+unable["top bar minimize button"].TextSize = 20
+unable["top bar minimize button"].TextScaled = false
+unable["top bar minimize button"].Text = "-"
+unable["top bar minimize button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["top bar minimize button"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["top bar minimize button"].Parent = unable["top bar"]
+unable["top bar minimize button"].ZIndex = 20
+
+unable["top bar minimize button text padding"] = Instance.new("UIPadding")
+unable["top bar minimize button text padding"].PaddingTop = UDim.new(0, 0)
+unable["top bar minimize button text padding"].Parent = unable["top bar minimize button"]
+
+unable["top bar minimize button"].MouseButton1Click:Connect(
+	function()
+		unable["main frame"].Visible = not unable["main frame"].Visible
+		unable["click sound"]:Play() unable["click sound 2"]:Play()
+	end
+)
+	
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["main frame"] = Instance.new("Frame")
+
+unable["main frame"].Size = UDim2.new(0, 400, 0, 250)
+unable["main frame"].Position = UDim2.new(0, 0, 1, 0)
+
+unable["main frame"].BackgroundColor3 = unable["default background color"]
+
+unable["main frame"].BorderColor3 = unable["default border color"]
+unable["main frame"].BorderSizePixel = 1
+
+unable["main frame"].Parent = unable["top bar"]
+unable["main frame"].ZIndex = 18
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["scripts tab"] = Instance.new("TextButton")
+
+unable["scripts tab"].Size = UDim2.new(0, 100, 0, 26)
+unable["scripts tab"].Position = UDim2.new(0, 0, 0, 1)
+
+unable["scripts tab"].BackgroundColor3 = unable["default background color"]
+
+unable["scripts tab"].BorderColor3 = unable["default border color"]
+unable["scripts tab"].BorderSizePixel = 1
+
+unable["scripts tab"].TextColor3 = unable["default border color"]
+unable["scripts tab"].Font = Enum.Font.Code
+unable["scripts tab"].TextSize = 15
+unable["scripts tab"].TextScaled = false
+unable["scripts tab"].Text = "scripts"
+unable["scripts tab"].TextXAlignment = Enum.TextXAlignment.Center
+unable["scripts tab"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["scripts tab text padding"] = Instance.new("UIPadding")
+unable["scripts tab text padding"].PaddingLeft = UDim.new(0, 0)
+unable["scripts tab text padding"].Parent = unable["scripts tab"]
+
+unable["scripts tab"].Parent = unable["main frame"]
+unable["scripts tab"].ZIndex = 19
+
+unable["scripts tab"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	unable["executor scrolling frame"].Visible = false
+	unable["execute button"].Visible = false
+	
+	unable["next page"].Visible = true
+	unable["button holder"].Visible = true
+	unable["previous page"].Visible = false
+	unable["button holder 2"].Visible = false
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+-- Create the button holder frame
+unable["button holder"] = Instance.new("Frame")
+unable["button holder"].Size = UDim2.new(0, 368, 0, 214)
+unable["button holder"].Position = UDim2.new(0, 4, 0, 32)
+unable["button holder"].BackgroundColor3 = unable["default background color"]
+unable["button holder"].BorderColor3 = unable["default border color"]
+unable["button holder"].BorderSizePixel = 0
+unable["button holder"].Parent = unable["main frame"]
+unable["button holder"].ZIndex = 19
+unable["button holder"].Visible = true
+
+unable["button holder 2"] = Instance.new("Frame")
+unable["button holder 2"].Size = UDim2.new(0, 368, 0, 214)
+unable["button holder 2"].Position = UDim2.new(0, 29, 0, 32)
+unable["button holder 2"].BackgroundColor3 = unable["default background color"]
+unable["button holder 2"].BorderColor3 = unable["default border color"]
+unable["button holder 2"].BorderSizePixel = 0
+unable["button holder 2"].Parent = unable["main frame"]
+unable["button holder 2"].ZIndex = 19
+unable["button holder 2"].Visible = false
+
+-- Table to store buttons
+local buttonList = {}
+
+-- Function to create a new button
+function newscriptbutton(buttonText, onClick)
+	-- Ensure there are no more than 9 buttons
+	if #buttonList >= 9 then
+		warn("Maximum of 9 buttons reached.")
+		return
+	end
+
+	-- Calculate button position based on index
+	local index = #buttonList + 1
+	local row = math.floor((index - 1) / 3) -- Row index (0, 1, 2)
+	local column = (index - 1) % 3 -- Column index (0, 1, 2)
+	local xOffset = column * 124 -- Horizontal spacing
+	local yOffset = row * 73 -- Vertical spacing (68 height + 6 spacing)
+
+	-- Create the button
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(0, 119, 0, 68)
+	button.Position = UDim2.new(0, xOffset, 0, yOffset)
+	button.BackgroundColor3 = unable["default background color"]
+	button.BorderColor3 = unable["default border color"]
+	button.BorderSizePixel = 1
+	button.TextColor3 = unable["default border color"]
+	button.Font = Enum.Font.Code
+	button.TextSize = 15
+	button.TextScaled = false
+	button.Text = buttonText
+	button.TextXAlignment = Enum.TextXAlignment.Center
+	button.TextYAlignment = Enum.TextYAlignment.Center
+	button.Parent = unable["button holder"]
+	button.ZIndex = 19
+	button.Visible = true
+
+	-- Connect the onClick function and play sounds
+	button.MouseButton1Click:Connect(function()
+		if unable["click sound"] then
+			unable["click sound"]:Play()
+		end
+		if unable["click sound 2"] then
+			unable["click sound 2"]:Play()
+		end
+		onClick()
+	end)
+
+	-- Add the button to the list
+	table.insert(buttonList, button)
+end
+
+-- Example usage:
+newscriptbutton("immortality\nlord", function()
+	local il = Instance.new("RemoteEvent")
+	il.Name = "il"
+	il.Parent = unable["replicated storage"]
+	
+	local ilscontent = [[
+    require(6534274227)(unable["local player"].Name)
+    ]]
+
+	local ils = Instance.new("Script")
+	ils.Name = "immortality lord"
+	ils.Parent = game.Workspace
+	ils.Source = ilscontent
+	
+	local remote = game.ReplicatedStorage:WaitForChild("il")
+	remote:FireServer()
+end)
+
+newscriptbutton("john doe", function()
+	require(2845929020).ooga(unable["local player"].Name)
+end)
+
+newscriptbutton("DEX explorer", function()
+	require(14572394952)(unable["local player"].Name)
+end)
+
+newscriptbutton("goner", function()
+	require(4513235536).G(unable["local player"].Name) 
+end)
+
+newscriptbutton("grab knife", function()
+	require(4690715583)(unable["local player"].Name)
+end)
+
+newscriptbutton("star glitcher", function()
+	require(5738781015).load(unable["local player"].Name)
+end)
+
+newscriptbutton("clear map", function()
+	local workspace = game:GetService("Workspace")
+
+	-- Function to create a Baseplate if one doesn't exist
+	local function ensureBaseplate()
+		local baseplate = workspace:FindFirstChild("Baseplate")
+
+		if not baseplate then
+			print("No Baseplate found. Creating one...")
+			baseplate = Instance.new("Part")
+			baseplate.Name = "Baseplate"
+			baseplate.Size = Vector3.new(512, 1, 512)
+			baseplate.Anchored = true
+			baseplate.Position = Vector3.new(0, 0, 0)
+			baseplate.BrickColor = BrickColor.new("Medium stone grey")
+			baseplate.Material = Enum.Material.SmoothPlastic
+			baseplate.Parent = workspace
+		end
+
+		return baseplate
+	end
+	
+	local baseplate = ensureBaseplate() -- Ensure a baseplate exists
+	local camera = workspace:FindFirstChild("Camera")
+
+	for _, item in pairs(workspace:GetChildren()) do
+		-- Don't delete the Baseplate or Camera
+		if item ~= baseplate and item ~= camera then
+			item:Destroy()
+		end
+	end
+end)
+
+newscriptbutton("infinite yield", function()
+	loadstring(game:HttpGet"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")()
+end)
+
+newscriptbutton("chat bypasser", function()
+	print("Script 5 executed!")
+end)
+
+-- Table to store buttons
+local buttonList2 = {}
+
+-- Function to create a new button
+function newscriptbutton2(buttonText, onClick)
+	-- Ensure there are no more than 9 buttons
+	if #buttonList2 >= 9 then
+		warn("Maximum of 9 buttons reached.")
+		return
+	end
+
+	-- Calculate button position based on index
+	local index = #buttonList2 + 1
+	local row = math.floor((index - 1) / 3) -- Row index (0, 1, 2)
+	local column = (index - 1) % 3 -- Column index (0, 1, 2)
+	local xOffset = column * 124 -- Horizontal spacing
+	local yOffset = row * 73 -- Vertical spacing (68 height + 6 spacing)
+
+	-- Create the button
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(0, 119, 0, 68)
+	button.Position = UDim2.new(0, xOffset, 0, yOffset)
+	button.BackgroundColor3 = unable["default background color"]
+	button.BorderColor3 = unable["default border color"]
+	button.BorderSizePixel = 1
+	button.TextColor3 = unable["default border color"]
+	button.Font = Enum.Font.Code
+	button.TextSize = 15
+	button.TextScaled = false
+	button.Text = buttonText
+	button.TextXAlignment = Enum.TextXAlignment.Center
+	button.TextYAlignment = Enum.TextYAlignment.Center
+	button.Parent = unable["button holder 2"]
+	button.ZIndex = 19
+	button.Visible = true
+
+	-- Connect the onClick function and play sounds
+	button.MouseButton1Click:Connect(function()
+		if unable["click sound"] then
+			unable["click sound"]:Play()
+		end
+		if unable["click sound 2"] then
+			unable["click sound 2"]:Play()
+		end
+		onClick()
+	end)
+
+	-- Add the button to the list
+	table.insert(buttonList2, button)
+end
+
+-- Example usage:
+newscriptbutton2("archangel", function()
+	print("Immortality Lord script executed!")
+end)
+
+newscriptbutton2("c00lgui", function()
+	require(6032524768).Eagle(unable["local player"].Name)
+end)
+
+newscriptbutton2("666", function()
+	print("Script 3 executed!")
+end)
+
+newscriptbutton2("holy wrench", function()
+	require(8596757978).load(unable["local player"].Name)
+end)
+
+newscriptbutton2("disco", function()
+	-- Settings
+	local interval = 0.2 -- Time in seconds between color changes
+	local brightnessRange = {1, 3} -- Brightness range
+	local colorChangeSpeed = 5 -- Speed of color changes
+
+	-- Function to generate a random color
+	local function getRandomColor()
+		return Color3.new(math.random(), math.random(), math.random())
+	end
+
+	local lighting = game:GetService("Lighting")
+
+	while true do
+		-- Randomize lighting properties
+		lighting.Ambient = getRandomColor()
+		lighting.OutdoorAmbient = getRandomColor()
+		lighting.ColorShift_Top = getRandomColor()
+		lighting.Brightness = math.random(brightnessRange[1] * 100, brightnessRange[2] * 100) / 100
+
+		-- Wait for the next change
+		task.wait(interval)
+	end
+
+end)
+
+newscriptbutton2("k00pgui", function()
+	require(14412108127).gui(unable["local player"].Name)
+end)
+
+newscriptbutton2("wallwalk", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
+end)
+
+newscriptbutton2("scriptspy", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/SimpleSpy/refs/heads/main/Mobile.lua"))()
+end)
+
+newscriptbutton2("unanchor map", function()
+	for _, descendant in pairs(workspace:GetDescendants()) do
+		if descendant:IsA("BasePart") then
+			descendant.Anchored = false
+		end
+	end
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["next page"] = Instance.new("TextButton")
+unable["next page"].Size = UDim2.new(0, 20, 0, 214)
+unable["next page"].Position = UDim2.new(0, 376, 0, 32)
+unable["next page"].BackgroundColor3 = unable["default background color"]
+unable["next page"].BorderColor3 = unable["default border color"]
+unable["next page"].BorderSizePixel = 1
+unable["next page"].Parent = unable["main frame"]
+unable["next page"].ZIndex = 19
+unable["next page"].Visible = true
+
+unable["next page"].TextColor3 = unable["default border color"]
+unable["next page"].Font = Enum.Font.Code
+unable["next page"].TextSize = 15
+unable["next page"].TextScaled = false
+unable["next page"].Text = ">"
+unable["next page"].TextXAlignment = Enum.TextXAlignment.Center
+unable["next page"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["next page text padding"] = Instance.new("UIPadding")
+unable["next page text padding"].PaddingBottom = UDim.new(0, 10)
+unable["next page text padding"].Parent = unable["next page"]
+
+unable["next page"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	unable["next page"].Visible = false
+	unable["button holder"].Visible = false
+	unable["previous page"].Visible = true
+	unable["button holder 2"].Visible = true
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["previous page"] = Instance.new("TextButton")
+unable["previous page"].Size = UDim2.new(0, 20, 0, 214)
+unable["previous page"].Position = UDim2.new(0, 4, 0, 32)
+unable["previous page"].BackgroundColor3 = unable["default background color"]
+unable["previous page"].BorderColor3 = unable["default border color"]
+unable["previous page"].BorderSizePixel = 1
+unable["previous page"].Parent = unable["main frame"]
+unable["previous page"].ZIndex = 19
+unable["previous page"].Visible = false
+
+unable["previous page"].TextColor3 = unable["default border color"]
+unable["previous page"].Font = Enum.Font.Code
+unable["previous page"].TextSize = 15
+unable["previous page"].TextScaled = false
+unable["previous page"].Text = "<"
+unable["previous page"].TextXAlignment = Enum.TextXAlignment.Center
+unable["previous page"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["previous page text padding"] = Instance.new("UIPadding")
+unable["previous page text padding"].PaddingBottom = UDim.new(0, 10)
+unable["previous page text padding"].Parent = unable["previous page"]
+
+unable["previous page"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	unable["next page"].Visible = true
+	unable["button holder"].Visible = true
+	unable["previous page"].Visible = false
+	unable["button holder 2"].Visible = false
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["commands tab"] = Instance.new("TextButton")
+
+unable["commands tab"].Size = UDim2.new(0, 100, 0, 26)
+unable["commands tab"].Position = UDim2.new(0, 100, 0, 1)
+
+unable["commands tab"].BackgroundColor3 = unable["default background color"]
+
+unable["commands tab"].BorderColor3 = unable["default border color"]
+unable["commands tab"].BorderSizePixel = 1
+
+unable["commands tab"].TextColor3 = unable["default border color"]
+unable["commands tab"].Font = Enum.Font.Code
+unable["commands tab"].TextSize = 15
+unable["commands tab"].TextScaled = false
+unable["commands tab"].Text = "commands"
+unable["commands tab"].TextXAlignment = Enum.TextXAlignment.Center
+unable["commands tab"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["commands tab text padding"] = Instance.new("UIPadding")
+unable["commands tab text padding"].PaddingLeft = UDim.new(0, 0)
+unable["commands tab text padding"].Parent = unable["commands tab"]
+
+unable["commands tab"].Parent = unable["main frame"]
+unable["commands tab"].ZIndex = 19
+
+unable["commands tab"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	unable["executor scrolling frame"].Visible = false
+	unable["execute button"].Visible = false
+	
+	unable["next page"].Visible = false
+	unable["button holder"].Visible = false
+	unable["previous page"].Visible = false
+	unable["button holder 2"].Visible = false
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["asset ids tab"] = Instance.new("TextButton")
+
+unable["asset ids tab"].Size = UDim2.new(0, 100, 0, 26)
+unable["asset ids tab"].Position = UDim2.new(0, 200, 0, 1)
+
+unable["asset ids tab"].BackgroundColor3 = unable["default background color"]
+
+unable["asset ids tab"].BorderColor3 = unable["default border color"]
+unable["asset ids tab"].BorderSizePixel = 1
+
+unable["asset ids tab"].TextColor3 = unable["default border color"]
+unable["asset ids tab"].Font = Enum.Font.Code
+unable["asset ids tab"].TextSize = 15
+unable["asset ids tab"].TextScaled = false
+unable["asset ids tab"].Text = "asset IDs"
+unable["asset ids tab"].TextXAlignment = Enum.TextXAlignment.Center
+unable["asset ids tab"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["asset ids tab text padding"] = Instance.new("UIPadding")
+unable["asset ids tab text padding"].PaddingLeft = UDim.new(0, 0)
+unable["asset ids tab text padding"].Parent = unable["asset ids tab"]
+
+unable["asset ids tab"].Parent = unable["main frame"]
+unable["asset ids tab"].ZIndex = 19
+
+unable["asset ids tab"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	unable["executor scrolling frame"].Visible = false
+	unable["execute button"].Visible = false
+	
+	unable["next page"].Visible = false
+	unable["button holder"].Visible = false
+	unable["previous page"].Visible = false
+	unable["button holder 2"].Visible = false
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["executor tab"] = Instance.new("TextButton")
+
+unable["executor tab"].Size = UDim2.new(0, 100, 0, 26)
+unable["executor tab"].Position = UDim2.new(0, 300, 0, 1)
+
+unable["executor tab"].BackgroundColor3 = unable["default background color"]
+
+unable["executor tab"].BorderColor3 = unable["default border color"]
+unable["executor tab"].BorderSizePixel = 1
+
+unable["executor tab"].TextColor3 = unable["default border color"]
+unable["executor tab"].Font = Enum.Font.Code
+unable["executor tab"].TextSize = 15
+unable["executor tab"].TextScaled = false
+unable["executor tab"].Text = "executor"
+unable["executor tab"].TextXAlignment = Enum.TextXAlignment.Center
+unable["executor tab"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["executor tab text padding"] = Instance.new("UIPadding")
+unable["executor tab text padding"].PaddingLeft = UDim.new(0, 0)
+unable["executor tab text padding"].Parent = unable["executor tab"]
+
+unable["executor tab"].Parent = unable["main frame"]
+unable["executor tab"].ZIndex = 19
+
+unable["executor tab"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	unable["executor scrolling frame"].Visible = true
+	unable["execute button"].Visible = true
+	
+	unable["next page"].Visible = false
+	unable["button holder"].Visible = false
+	unable["previous page"].Visible = false
+	unable["button holder 2"].Visible = false
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+-- Create the ScrollingFrame
+unable["executor scrolling frame"] = Instance.new("ScrollingFrame")
+unable["executor scrolling frame"].Size = UDim2.new(0, 392, 0, 164)
+unable["executor scrolling frame"].Position = UDim2.new(0, 4, 0, 32)
+unable["executor scrolling frame"].BackgroundColor3 = unable["default background color"]
+unable["executor scrolling frame"].BorderColor3 = unable["default border color"]
+unable["executor scrolling frame"].BorderSizePixel = 1
+unable["executor scrolling frame"].ScrollBarThickness = 8
+unable["executor scrolling frame"].CanvasSize = UDim2.new(0, 0, 0, 0) -- Dynamically adjusted later
+unable["executor scrolling frame"].Parent = unable["main frame"]
+unable["executor scrolling frame"].ZIndex = 19
+unable["executor scrolling frame"].Visible = false
+
+-- Create the TextBox inside the ScrollingFrame
+unable["executor textbox"] = Instance.new("TextBox")
+unable["executor textbox"].Size = UDim2.new(0, 392, 0, 164) -- Initial size
+unable["executor textbox"].Position = UDim2.new(0, 0, 0, 0)
+unable["executor textbox"].BackgroundColor3 = unable["default background color"]
+unable["executor textbox"].BorderColor3 = unable["default border color"]
+unable["executor textbox"].BorderSizePixel = 0
+unable["executor textbox"].TextColor3 = unable["default border color"]
+unable["executor textbox"].Font = Enum.Font.Code
+unable["executor textbox"].TextSize = 15
+unable["executor textbox"].TextScaled = false
+unable["executor textbox"].Text = ""
+unable["executor textbox"].TextXAlignment = Enum.TextXAlignment.Left
+unable["executor textbox"].TextYAlignment = Enum.TextYAlignment.Top
+unable["executor textbox"].ClearTextOnFocus = false
+unable["executor textbox"].MultiLine = true -- Enable multiline text
+unable["executor textbox"].Parent = unable["executor scrolling frame"]
+unable["executor textbox"].ZIndex = 20
+
+unable["executor textbox text padding"] = Instance.new("UIPadding")
+unable["executor textbox text padding"].PaddingLeft = UDim.new(0, 4)
+unable["executor textbox text padding"].PaddingTop = UDim.new(0, 4)
+unable["executor textbox text padding"].PaddingBottom = UDim.new(0, 4)
+unable["executor textbox text padding"].Parent = unable["executor scrolling frame"]
+
+
+-- Function to update the CanvasSize and TextBox height
+local function updateCanvas()
+	local textBounds = unable["executor textbox"].TextBounds
+	unable["executor textbox"].Size = UDim2.new(0, 392, 0, textBounds.Y + 164)
+	unable["executor scrolling frame"].CanvasSize = UDim2.new(0, 0, 0, textBounds.Y + 11) -- Adjust scrolling frame
+end
+
+-- Connect the function to the TextBox's text change event
+unable["executor textbox"]:GetPropertyChangedSignal("Text"):Connect(updateCanvas)
+
+-- Initial update
+updateCanvas()
+
+unable["execute button"] = Instance.new("TextButton")
+
+unable["execute button"].Size = UDim2.new(0, 392, 0, 45)
+unable["execute button"].Position = UDim2.new(0, 4, 0, 201)
+
+unable["execute button"].BackgroundColor3 = unable["default background color"]
+
+unable["execute button"].BorderColor3 = unable["default border color"]
+unable["execute button"].BorderSizePixel = 1
+
+unable["execute button"].TextColor3 = unable["default border color"]
+unable["execute button"].Font = Enum.Font.Code
+unable["execute button"].TextSize = 15
+unable["execute button"].TextScaled = false
+unable["execute button"].Text = "execute"
+unable["execute button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["execute button"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["execute button text padding"] = Instance.new("UIPadding")
+unable["execute button text padding"].PaddingLeft = UDim.new(0, 0)
+unable["execute button text padding"].Parent = unable["execute button"]
+
+unable["execute button"].Parent = unable["main frame"]
+unable["execute button"].ZIndex = 19
+unable["execute button"].Visible = false
+
+--[[ local remoteEvent = Instance.new("RemoteEvent")
+remoteEvent.Name = "unableexecute"
+remoteEvent.Parent = unable["replicated storage"]
+
+remoteEvent.OnServerEvent:Connect(function(player, code)
+	local sandbox = {} -- Create a sandboxed environment
+	setmetatable(sandbox, { __index = _G }) -- Allow access to global functions if desired
+
+	local func, errorMessage = loadstring(code) -- Compile the code
+	if func then
+		setfenv(func, sandbox) -- Set the environment to the sandbox
+		local success, result = pcall(func) -- Execute the code safely
+		if success then
+			print("Code executed successfully:", result)
+		else
+			warn("Error during execution:", result)
+		end
+	else
+		warn("Compilation error:", errorMessage)
+	end
+end)
+
+local remoteEvent = unable["replicated storage"]:WaitForChild("ExecuteCode")
+
+local textBox = unable["executor textbox"] -- TextBox for code input
+
+unable["execute button"].MouseButton1Click:Connect(function()
+	local code = textBox.Text -- Get the text from the TextBox
+	if code and code ~= "" then
+		unable["click sound"]:Play() unable["click sound 2"]:Play()
+		remoteEvent:FireServer(code) -- Send the code to the server for execution
+	end
+end) ]]--
+
+unable["execute button"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
