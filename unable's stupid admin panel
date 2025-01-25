@@ -623,7 +623,6 @@ newscriptbutton("chat bypasser", function()
 		while true do
 			task.wait(0.1)
 			pcall(setNetworkOwnership)
-			print("Attempting to force network ownership...")
 		end
 	end
 
