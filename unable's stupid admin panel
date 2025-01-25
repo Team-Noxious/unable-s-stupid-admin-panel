@@ -544,21 +544,7 @@ end
 
 -- Example usage:
 newscriptbutton("immortality\nlord", function()
-	local il = Instance.new("RemoteEvent")
-	il.Name = "il"
-	il.Parent = unable["replicated storage"]
-	
-	local ilscontent = [[
     require(6534274227)(unable["local player"].Name)
-    ]]
-
-	local ils = Instance.new("Script")
-	ils.Name = "immortality lord"
-	ils.Parent = game.Workspace
-	ils.Source = ilscontent
-	
-	local remote = game.ReplicatedStorage:WaitForChild("il")
-	remote:FireServer()
 end)
 
 newscriptbutton("john doe", function()
