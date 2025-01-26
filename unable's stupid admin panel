@@ -1146,7 +1146,7 @@ end)
 -------------------------------------------------------------------------------------------------------------------------------
 
 unable["asset id type indicator"] = Instance.new("TextLabel")
-unable["asset id type indicator"].Size = UDim2.new(0, 344, 0, 20)
+unable["asset id type indicator"].Size = UDim2.new(0, 345, 0, 20)
 unable["asset id type indicator"].Position = UDim2.new(0, 28, 0, 32)
 unable["asset id type indicator"].BackgroundColor3 = unable["default background color"]
 unable["asset id type indicator"].BorderColor3 = unable["default border color"]
@@ -1188,8 +1188,8 @@ unable["switch asset id type button text padding"].PaddingTop = UDim.new(0, -4)
 unable["switch asset id type button text padding"].Parent = unable["switch asset id type button"]
 
 unable["switch asset id type button 2"] = Instance.new("TextButton")
-unable["switch asset id type button 2"].Size = UDim2.new(0, 20, 0, 20)
-unable["switch asset id type button 2"].Position = UDim2.new(0, 377, 0, 32)
+unable["switch asset id type button 2"].Size = UDim2.new(0, 19, 0, 20)
+unable["switch asset id type button 2"].Position = UDim2.new(0, 378, 0, 32)
 unable["switch asset id type button 2"].BackgroundColor3 = unable["default background color"]
 unable["switch asset id type button 2"].BorderColor3 = unable["default border color"]
 unable["switch asset id type button 2"].BorderSizePixel = 1
