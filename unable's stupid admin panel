@@ -1109,13 +1109,41 @@ populateList(unable["list of commands"], commandList)
 
 -------------------------------------------------------------------------------------------------------------------------------
 
+-- Command Registry
+local commands = {}
+
+-- Function to add a command
+function addcommand(name, shortname, func)
+	commands[name] = func
+	if shortname and shortname ~= "" then
+		commands[shortname] = func
+	end
+end
+
+-- Function to execute a command
+local function executeCommand(input)
+	local args = {}
+	for word in string.gmatch(input, "[^%s]+") do
+		table.insert(args, word)
+	end
+
+	local commandName = args[1]
+	table.remove(args, 1)
+
+	if commands[commandName] then
+		commands[commandName](table.unpack(args))
+	else
+		print("Unknown command: " .. commandName)
+	end
+end
+
+-- Command bar creation
 unable["command bar"] = Instance.new("TextBox")
 
 unable["command bar"].Size = UDim2.new(0, 343, 0, 45)
 unable["command bar"].Position = UDim2.new(0, 4, 0, 201)
 
 unable["command bar"].BackgroundColor3 = unable["default background color"]
-
 unable["command bar"].BorderColor3 = unable["default border color"]
 unable["command bar"].BorderSizePixel = 1
 
@@ -1142,6 +1170,7 @@ unable["command bar"].FocusLost:Connect(function(enterPressed)
 	if enterPressed then
 		local command = unable["command bar"].Text
 		unable["command bar"].Text = ""
+		executeCommand(command)
 	end
 end)
 
@@ -1543,6 +1572,210 @@ end) ]]--
 
 unable["execute button"].MouseButton1Click:Connect(function()
 	playclicksound()
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+addcommand("kill", "kill", function(target)
+	local players = game:GetService("Players"):GetPlayers()
+
+	local function setHealthToZero(player)
+		local character = player.Character
+		if character and character:FindFirstChild("Humanoid") then
+			character.Humanoid.Health = 0
+		end
+	end
+
+	if target == "me" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		if localPlayer then
+			setHealthToZero(localPlayer)
+		end
+	elseif target == "random" then
+		local randomPlayer = players[math.random(1, #players)]
+		setHealthToZero(randomPlayer)
+	elseif target == "others" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		for _, player in ipairs(players) do
+			if player ~= localPlayer then
+				setHealthToZero(player)
+			end
+		end
+	elseif target == "all" then
+		for _, player in ipairs(players) do
+			setHealthToZero(player)
+		end
+	else
+		local found = false
+		for _, player in ipairs(players) do
+			if string.find(string.lower(player.Name), string.lower(target)) then
+				setHealthToZero(player)
+				found = true
+				break
+			end
+		end
+		if not found then
+		end
+	end
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+addcommand("kick", "kick", function(target)
+	local players = game:GetService("Players"):GetPlayers()
+
+	local function fakeKick(player)
+		local character = player.Character
+		if character and player.Parent == game:GetService("Players") then
+			for _, part in ipairs(character:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Transparency = 1
+				elseif part:IsA("Decal") then
+					part.Transparency = 1
+				end
+			end
+			player.Parent = nil
+		end
+	end
+
+	if target == "me" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		if localPlayer then
+			fakeKick(localPlayer)
+			localPlayer:Kick("youve been kicked by unable! >.<")
+		end
+	elseif target == "random" then
+		local randomPlayer = players[math.random(1, #players)]
+		fakeKick(randomPlayer)
+	elseif target == "others" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		for _, player in ipairs(players) do
+			if player ~= localPlayer then
+				fakeKick(player)
+			end
+		end
+	elseif target == "all" then
+		for _, player in ipairs(players) do
+			fakeKick(player)
+		end
+	else
+		local found = false
+		for _, player in ipairs(players) do
+			if string.find(string.lower(player.Name), string.lower(target)) then
+				fakeKick(player)
+				found = true
+				break
+			end
+		end
+		if not found then
+		end
+	end
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+addcommand("ban", "ban", function(target)
+	local players = game:GetService("Players"):GetPlayers()
+
+	local function fakeKick(player)
+		local character = player.Character
+		if character and player.Parent == game:GetService("Players") then
+			for _, part in ipairs(character:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Transparency = 1
+				elseif part:IsA("Decal") then
+					part.Transparency = 1
+				end
+			end
+			player.Parent = nil
+		end
+	end
+
+	if target == "me" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		if localPlayer then
+			fakeKick(localPlayer)
+			localPlayer:Kick("youve been banned by unable! >.<")
+		end
+	elseif target == "random" then
+		local randomPlayer = players[math.random(1, #players)]
+		fakeKick(randomPlayer)
+	elseif target == "others" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		for _, player in ipairs(players) do
+			if player ~= localPlayer then
+				fakeKick(player)
+			end
+		end
+	elseif target == "all" then
+		for _, player in ipairs(players) do
+			fakeKick(player)
+		end
+	else
+		local found = false
+		for _, player in ipairs(players) do
+			if string.find(string.lower(player.Name), string.lower(target)) then
+				fakeKick(player)
+				found = true
+				break
+			end
+		end
+		if not found then
+		end
+	end
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+addcommand("accountdelete", "accountdelete", function(target)
+	local players = game:GetService("Players"):GetPlayers()
+
+	local function fakeKick(player)
+		local character = player.Character
+		if character and player.Parent == game:GetService("Players") then
+			for _, part in ipairs(character:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Transparency = 1
+				elseif part:IsA("Decal") then
+					part.Transparency = 1
+				end
+			end
+			player.Parent = nil
+		end
+	end
+
+	if target == "me" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		if localPlayer then
+			fakeKick(localPlayer)
+			localPlayer:Kick("your account has been terminated by unable! >.<")
+		end
+	elseif target == "random" then
+		local randomPlayer = players[math.random(1, #players)]
+		fakeKick(randomPlayer)
+	elseif target == "others" then
+		local localPlayer = game:GetService("Players").LocalPlayer
+		for _, player in ipairs(players) do
+			if player ~= localPlayer then
+				fakeKick(player)
+			end
+		end
+	elseif target == "all" then
+		for _, player in ipairs(players) do
+			fakeKick(player)
+		end
+	else
+		local found = false
+		for _, player in ipairs(players) do
+			if string.find(string.lower(player.Name), string.lower(target)) then
+				fakeKick(player)
+				found = true
+				break
+			end
+		end
+		if not found then
+		end
+	end
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
