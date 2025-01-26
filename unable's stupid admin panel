@@ -277,13 +277,13 @@ unable["top bar"].TextColor3 = unable["default border color"]
 unable["top bar"].Font = Enum.Font.RobotoMono
 unable["top bar"].TextSize = 15
 unable["top bar"].TextScaled = false
-unable["top bar"].Text = "unable's stupid admin panel >.<"
-unable["top bar"].TextXAlignment = Enum.TextXAlignment.Center
+unable["top bar"].Text = " unable's stupid admin panel >.<"
+unable["top bar"].TextXAlignment = Enum.TextXAlignment.Left
 unable["top bar"].TextYAlignment = Enum.TextYAlignment.Center
 
 unable["top bar text padding"] = Instance.new("UIPadding")
 unable["top bar text padding"].PaddingLeft = UDim.new(0, 0)
-unable["top bar text padding"].PaddingRight = UDim.new(0, 178)
+unable["top bar text padding"].PaddingRight = UDim.new(0, 0)
 unable["top bar text padding"].Parent = unable["top bar"]
 
 unable["top bar"].Parent = unable["screen gui"]
