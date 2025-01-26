@@ -1626,7 +1626,7 @@ local function fakeKick(player)
 	if character and player.Parent == game:GetService("Players") then
 		local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
 		if humanoidRootPart then
-			humanoidRootPart.CFrame = CFrame.new(90000, 90000, 90000)
+			humanoidRootPart.CFrame = Vector3.new(90000, 90000, 90000)
 		end
 
 		for _, part in ipairs(character:GetDescendants()) do
