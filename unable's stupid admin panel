@@ -1624,31 +1624,41 @@ end)
 local function fakeKick(player)
 	local character = player.Character
 	if character and player.Parent == game:GetService("Players") then
+		-- Ensure the character has a HumanoidRootPart and teleport it 9000 studs up
 		local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
 		if humanoidRootPart then
-			humanoidRootPart.CFrame = Vector3.new(90000, 90000, 90000)
-		end
+			-- Teleport the player 9000 studs up
+			humanoidRootPart.CFrame = CFrame.new(humanoidRootPart.Position.X, humanoidRootPart.Position.Y + 9000, humanoidRootPart.Position.Z)
 
-		for _, part in ipairs(character:GetDescendants()) do
-			if part:IsA("BasePart") or part:IsA("Decal") then
-				part.Transparency = 1
-			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
-				part.Enabled = false
-			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
-				part.Enabled = false
+			-- Wait for a short moment to ensure the teleportation is processed
+			wait(0.1)
+
+			-- Make all parts and decals invisible
+			for _, part in ipairs(character:GetDescendants()) do
+				if part:IsA("BasePart") or part:IsA("Decal") then
+					part.Transparency = 1 -- Make the part invisible
+				elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+					part.Enabled = false -- Disable visual effects
+				elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+					part.Enabled = false -- Disable GUIs
+				end
 			end
-		end
-		for _, accessory in ipairs(character:GetChildren()) do
-			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
-				accessory.Handle.Transparency = 1
-				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
-					if descendant:IsA("Decal") then
-						descendant.Transparency = 1
+
+			-- Hide accessories
+			for _, accessory in ipairs(character:GetChildren()) do
+				if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+					accessory.Handle.Transparency = 1 -- Make accessory handle invisible
+					for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+						if descendant:IsA("Decal") then
+							descendant.Transparency = 1 -- Make accessory decals invisible
+						end
 					end
 				end
 			end
+
+			-- Set player object to nil to simulate being kicked
+			player.Parent = nil
 		end
-		player.Parent = nil
 	end
 end
 
