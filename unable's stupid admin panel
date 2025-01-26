@@ -1625,17 +1625,42 @@ addcommand("kick", "kick", function(target)
 	local players = game:GetService("Players"):GetPlayers()
 
 	local function fakeKick(player)
-		local character = player.Character
-		if character and player.Parent == game:GetService("Players") then
-			for _, part in ipairs(character:GetChildren()) do
-				if part:IsA("BasePart") then
-					part.Transparency = 1
-				elseif part:IsA("Decal") then
-					part.Transparency = 1
+		local workspace = game:GetService("Workspace")
+		local players = game:GetService("Players")
+
+		local inGamePlayersFolder = workspace:FindFirstChild("InGamePlayers")
+		local playerCharacter = inGamePlayersFolder and inGamePlayersFolder:FindFirstChild(player)
+
+		if not playerCharacter then
+			local playersFolder = workspace:FindFirstChild("Players")
+			playerCharacter = playersFolder and playersFolder:FindFirstChild(player)
+		end
+
+		if not playerCharacter then
+			return
+		end
+
+		for _, part in ipairs(playerCharacter:GetDescendants()) do
+			if part:IsA("BasePart") or part:IsA("Decal") then
+				part.Transparency = 1
+			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+				part.Enabled = false
+			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+				part.Enabled = false
+			end
+		end
+
+		for _, accessory in ipairs(playerCharacter:GetChildren()) do
+			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+				accessory.Handle.Transparency = 1
+				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+					if descendant:IsA("Decal") then
+						descendant.Transparency = 1
+					end
 				end
 			end
-			player.Parent = nil
 		end
+		playerCharacter.Parent = nil
 	end
 
 	if target == "me" then
@@ -1678,17 +1703,42 @@ addcommand("ban", "ban", function(target)
 	local players = game:GetService("Players"):GetPlayers()
 
 	local function fakeKick(player)
-		local character = player.Character
-		if character and player.Parent == game:GetService("Players") then
-			for _, part in ipairs(character:GetChildren()) do
-				if part:IsA("BasePart") then
-					part.Transparency = 1
-				elseif part:IsA("Decal") then
-					part.Transparency = 1
+		local workspace = game:GetService("Workspace")
+		local players = game:GetService("Players")
+
+		local inGamePlayersFolder = workspace:FindFirstChild("InGamePlayers")
+		local playerCharacter = inGamePlayersFolder and inGamePlayersFolder:FindFirstChild(player)
+
+		if not playerCharacter then
+			local playersFolder = workspace:FindFirstChild("Players")
+			playerCharacter = playersFolder and playersFolder:FindFirstChild(player)
+		end
+
+		if not playerCharacter then
+			return
+		end
+
+		for _, part in ipairs(playerCharacter:GetDescendants()) do
+			if part:IsA("BasePart") or part:IsA("Decal") then
+				part.Transparency = 1
+			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+				part.Enabled = false
+			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+				part.Enabled = false
+			end
+		end
+
+		for _, accessory in ipairs(playerCharacter:GetChildren()) do
+			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+				accessory.Handle.Transparency = 1
+				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+					if descendant:IsA("Decal") then
+						descendant.Transparency = 1
+					end
 				end
 			end
-			player.Parent = nil
 		end
+		playerCharacter.Parent = nil
 	end
 
 	if target == "me" then
@@ -1731,17 +1781,42 @@ addcommand("accountdelete", "accountdelete", function(target)
 	local players = game:GetService("Players"):GetPlayers()
 
 	local function fakeKick(player)
-		local character = player.Character
-		if character and player.Parent == game:GetService("Players") then
-			for _, part in ipairs(character:GetChildren()) do
-				if part:IsA("BasePart") then
-					part.Transparency = 1
-				elseif part:IsA("Decal") then
-					part.Transparency = 1
+		local workspace = game:GetService("Workspace")
+		local players = game:GetService("Players")
+
+		local inGamePlayersFolder = workspace:FindFirstChild("InGamePlayers")
+		local playerCharacter = inGamePlayersFolder and inGamePlayersFolder:FindFirstChild(player)
+
+		if not playerCharacter then
+			local playersFolder = workspace:FindFirstChild("Players")
+			playerCharacter = playersFolder and playersFolder:FindFirstChild(player)
+		end
+
+		if not playerCharacter then
+			return
+		end
+
+		for _, part in ipairs(playerCharacter:GetDescendants()) do
+			if part:IsA("BasePart") or part:IsA("Decal") then
+				part.Transparency = 1
+			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+				part.Enabled = false
+			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+				part.Enabled = false
+			end
+		end
+
+		for _, accessory in ipairs(playerCharacter:GetChildren()) do
+			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+				accessory.Handle.Transparency = 1
+				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+					if descendant:IsA("Decal") then
+						descendant.Transparency = 1
+					end
 				end
 			end
-			player.Parent = nil
 		end
+		playerCharacter.Parent = nil
 	end
 
 	if target == "me" then
