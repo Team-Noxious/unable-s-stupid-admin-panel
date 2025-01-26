@@ -68,12 +68,12 @@ unable["default 1/2 color"] = Color3.fromHex("293489")
 
 unable["click sound"] = Instance.new"Sound"
 unable["click sound"].SoundId = "rbxassetid://226892749"
-unable["click sound"].Parent = unable["workspace"]
+unable["click sound"].Parent = unable["local player"]
 unable["click sound"].Volume = 0.2
 
 unable["click sound 2"] = Instance.new"Sound"
 unable["click sound 2"].SoundId = "rbxassetid://7148585764"
-unable["click sound 2"].Parent = unable["workspace"]
+unable["click sound 2"].Parent = unable["local player"]
 unable["click sound 2"].Volume = 0.2
 
 function playclicksound()
