@@ -1624,78 +1624,62 @@ end)
 addcommand("kick", "kick", function(target)
 	local players = game:GetService("Players"):GetPlayers()
 
-	local function fakeKick(playerName)
-		local workspace = game:GetService("Workspace")
-		local playersService = game:GetService("Players")
-
-		-- First search in "InGamePlayers"
-		local inGamePlayersFolder = workspace:FindFirstChild("InGamePlayers")
-		local playerCharacter = inGamePlayersFolder and inGamePlayersFolder:FindFirstChild(playerName)
-
-		-- If not found, fall back to "Players" in workspace
-		if not playerCharacter then
-			local playersFolder = workspace:FindFirstChild("Players")
-			playerCharacter = playersFolder and playersFolder:FindFirstChild(playerName)
-		end
-
-		-- If player not found, return
-		if not playerCharacter then
-			return
-		end
-
-		-- Make the character invisible
-		for _, part in ipairs(playerCharacter:GetDescendants()) do
-			if part:IsA("BasePart") or part:IsA("Decal") then
-				part.Transparency = 1 -- Make the part invisible
-			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
-				part.Enabled = false -- Disable visual effects
-			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
-				part.Enabled = false -- Disable GUIs
+	local function fakeKick(player)
+		local character = player.Character
+		if character and player.Parent == game:GetService("Players") then
+			-- Make all parts and decals invisible
+			for _, part in ipairs(character:GetDescendants()) do
+				if part:IsA("BasePart") or part:IsA("Decal") then
+					part.Transparency = 1 -- Make the part invisible
+				elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+					part.Enabled = false -- Disable visual effects
+				elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+					part.Enabled = false -- Disable GUIs
+				end
 			end
-		end
 
-		-- Make accessories invisible
-		for _, accessory in ipairs(playerCharacter:GetChildren()) do
-			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
-				accessory.Handle.Transparency = 1 -- Make accessory handle invisible
-				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
-					if descendant:IsA("Decal") then
-						descendant.Transparency = 1 -- Make accessory decals invisible
+			-- Hide accessories
+			for _, accessory in ipairs(character:GetChildren()) do
+				if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+					accessory.Handle.Transparency = 1 -- Make accessory handle invisible
+					for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+						if descendant:IsA("Decal") then
+							descendant.Transparency = 1 -- Make accessory decals invisible
+						end
 					end
 				end
 			end
-		end
 
-		-- Simulate kicking the player by removing the character from the game
-		playerCharacter.Parent = nil
+			-- Set player object to nil to simulate being kicked
+			player.Parent = nil
+		end
 	end
 
-	-- Handle different targets
 	if target == "me" then
 		local localPlayer = game:GetService("Players").LocalPlayer
 		if localPlayer then
-			fakeKick(localPlayer.Name)
+			fakeKick(localPlayer)
+			localPlayer:Kick("youve been kicked by unable! >.<")
 		end
 	elseif target == "random" then
 		local randomPlayer = players[math.random(1, #players)]
-		fakeKick(randomPlayer.Name)
+		fakeKick(randomPlayer)
 	elseif target == "others" then
 		local localPlayer = game:GetService("Players").LocalPlayer
 		for _, player in ipairs(players) do
 			if player ~= localPlayer then
-				fakeKick(player.Name)
+				fakeKick(player)
 			end
 		end
 	elseif target == "all" then
 		for _, player in ipairs(players) do
-			fakeKick(player.Name)
+			fakeKick(player)
 		end
 	else
-		-- Search for the player by name (case-insensitive)
 		local found = false
 		for _, player in ipairs(players) do
 			if string.find(string.lower(player.Name), string.lower(target)) then
-				fakeKick(player.Name)
+				fakeKick(player)
 				found = true
 				break
 			end
@@ -1710,78 +1694,62 @@ end)
 addcommand("ban", "ban", function(target)
 	local players = game:GetService("Players"):GetPlayers()
 
-	local function fakeKick(playerName)
-		local workspace = game:GetService("Workspace")
-		local playersService = game:GetService("Players")
-
-		-- First search in "InGamePlayers"
-		local inGamePlayersFolder = workspace:FindFirstChild("InGamePlayers")
-		local playerCharacter = inGamePlayersFolder and inGamePlayersFolder:FindFirstChild(playerName)
-
-		-- If not found, fall back to "Players" in workspace
-		if not playerCharacter then
-			local playersFolder = workspace:FindFirstChild("Players")
-			playerCharacter = playersFolder and playersFolder:FindFirstChild(playerName)
-		end
-
-		-- If player not found, return
-		if not playerCharacter then
-			return
-		end
-
-		-- Make the character invisible
-		for _, part in ipairs(playerCharacter:GetDescendants()) do
-			if part:IsA("BasePart") or part:IsA("Decal") then
-				part.Transparency = 1 -- Make the part invisible
-			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
-				part.Enabled = false -- Disable visual effects
-			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
-				part.Enabled = false -- Disable GUIs
+	local function fakeKick(player)
+		local character = player.Character
+		if character and player.Parent == game:GetService("Players") then
+			-- Make all parts and decals invisible
+			for _, part in ipairs(character:GetDescendants()) do
+				if part:IsA("BasePart") or part:IsA("Decal") then
+					part.Transparency = 1 -- Make the part invisible
+				elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+					part.Enabled = false -- Disable visual effects
+				elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+					part.Enabled = false -- Disable GUIs
+				end
 			end
-		end
 
-		-- Make accessories invisible
-		for _, accessory in ipairs(playerCharacter:GetChildren()) do
-			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
-				accessory.Handle.Transparency = 1 -- Make accessory handle invisible
-				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
-					if descendant:IsA("Decal") then
-						descendant.Transparency = 1 -- Make accessory decals invisible
+			-- Hide accessories
+			for _, accessory in ipairs(character:GetChildren()) do
+				if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+					accessory.Handle.Transparency = 1 -- Make accessory handle invisible
+					for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+						if descendant:IsA("Decal") then
+							descendant.Transparency = 1 -- Make accessory decals invisible
+						end
 					end
 				end
 			end
-		end
 
-		-- Simulate kicking the player by removing the character from the game
-		playerCharacter.Parent = nil
+			-- Set player object to nil to simulate being kicked
+			player.Parent = nil
+		end
 	end
 
-	-- Handle different targets
 	if target == "me" then
 		local localPlayer = game:GetService("Players").LocalPlayer
 		if localPlayer then
-			fakeKick(localPlayer.Name)
+			fakeKick(localPlayer)
+			localPlayer:Kick("youve been banned by unable! >.<")
 		end
 	elseif target == "random" then
 		local randomPlayer = players[math.random(1, #players)]
-		fakeKick(randomPlayer.Name)
+		fakeKick(randomPlayer)
 	elseif target == "others" then
 		local localPlayer = game:GetService("Players").LocalPlayer
 		for _, player in ipairs(players) do
 			if player ~= localPlayer then
-				fakeKick(player.Name)
+				fakeKick(player)
 			end
 		end
 	elseif target == "all" then
 		for _, player in ipairs(players) do
-			fakeKick(player.Name)
+			fakeKick(player)
 		end
 	else
-		-- Search for the player by name (case-insensitive)
 		local found = false
 		for _, player in ipairs(players) do
 			if string.find(string.lower(player.Name), string.lower(target)) then
-				fakeKick(player.Name)
+				fakeKick(player)
 				found = true
 				break
 			end
@@ -1796,78 +1764,61 @@ end)
 addcommand("accountdelete", "accountdelete", function(target)
 	local players = game:GetService("Players"):GetPlayers()
 
-	local function fakeKick(playerName)
-		local workspace = game:GetService("Workspace")
-		local playersService = game:GetService("Players")
-
-		-- First search in "InGamePlayers"
-		local inGamePlayersFolder = workspace:FindFirstChild("InGamePlayers")
-		local playerCharacter = inGamePlayersFolder and inGamePlayersFolder:FindFirstChild(playerName)
-
-		-- If not found, fall back to "Players" in workspace
-		if not playerCharacter then
-			local playersFolder = workspace:FindFirstChild("Players")
-			playerCharacter = playersFolder and playersFolder:FindFirstChild(playerName)
-		end
-
-		-- If player not found, return
-		if not playerCharacter then
-			return
-		end
-
-		-- Make the character invisible
-		for _, part in ipairs(playerCharacter:GetDescendants()) do
-			if part:IsA("BasePart") or part:IsA("Decal") then
-				part.Transparency = 1 -- Make the part invisible
-			elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
-				part.Enabled = false -- Disable visual effects
-			elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
-				part.Enabled = false -- Disable GUIs
+	local function fakeKick(player)
+		local character = player.Character
+		if character and player.Parent == game:GetService("Players") then
+			-- Make all parts and decals invisible
+			for _, part in ipairs(character:GetDescendants()) do
+				if part:IsA("BasePart") or part:IsA("Decal") then
+					part.Transparency = 1 -- Make the part invisible
+				elseif part:IsA("ParticleEmitter") or part:IsA("Light") or part:IsA("Beam") or part:IsA("Trail") then
+					part.Enabled = false -- Disable visual effects
+				elseif part:IsA("BillboardGui") or part:IsA("SurfaceGui") then
+					part.Enabled = false -- Disable GUIs
+				end
 			end
-		end
 
-		-- Make accessories invisible
-		for _, accessory in ipairs(playerCharacter:GetChildren()) do
-			if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
-				accessory.Handle.Transparency = 1 -- Make accessory handle invisible
-				for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
-					if descendant:IsA("Decal") then
-						descendant.Transparency = 1 -- Make accessory decals invisible
+			-- Hide accessories
+			for _, accessory in ipairs(character:GetChildren()) do
+				if accessory:IsA("Accessory") and accessory:FindFirstChild("Handle") then
+					accessory.Handle.Transparency = 1 -- Make accessory handle invisible
+					for _, descendant in ipairs(accessory.Handle:GetDescendants()) do
+						if descendant:IsA("Decal") then
+							descendant.Transparency = 1 -- Make accessory decals invisible
+						end
 					end
 				end
 			end
-		end
 
-		-- Simulate kicking the player by removing the character from the game
-		playerCharacter.Parent = nil
+			-- Set player object to nil to simulate being kicked
+			player.Parent = nil
+		end
 	end
 
-	-- Handle different targets
 	if target == "me" then
 		local localPlayer = game:GetService("Players").LocalPlayer
 		if localPlayer then
-			fakeKick(localPlayer.Name)
+			fakeKick(localPlayer)
 		end
 	elseif target == "random" then
 		local randomPlayer = players[math.random(1, #players)]
-		fakeKick(randomPlayer.Name)
+		fakeKick(randomPlayer)
 	elseif target == "others" then
 		local localPlayer = game:GetService("Players").LocalPlayer
 		for _, player in ipairs(players) do
 			if player ~= localPlayer then
-				fakeKick(player.Name)
+				fakeKick(player)
 			end
 		end
 	elseif target == "all" then
 		for _, player in ipairs(players) do
-			fakeKick(player.Name)
+			fakeKick(player)
 		end
 	else
-		-- Search for the player by name (case-insensitive)
 		local found = false
 		for _, player in ipairs(players) do
 			if string.find(string.lower(player.Name), string.lower(target)) then
-				fakeKick(player.Name)
+				fakeKick(player)
 				found = true
 				break
 			end
