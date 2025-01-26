@@ -13,6 +13,7 @@ wait(0.1) local unable = {}
 
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
+unable["version"] = "1"
 unable["test game"] = 118022198489171
 unable["workspace"] = game.Workspace
 unable["user input service"] = game:GetService("UserInputService")
@@ -74,6 +75,11 @@ unable["click sound 2"] = Instance.new"Sound"
 unable["click sound 2"].SoundId = "rbxassetid://7148585764"
 unable["click sound 2"].Parent = unable["workspace"]
 unable["click sound 2"].Volume = 0.2
+
+function playclicksound()
+	unable["click sound"]:Play()
+	unable["click sound 2"]:Play()
+end
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -215,7 +221,7 @@ movebutton()
 unable["toggle interface visibility button"].MouseButton1Click:Connect(
 	function()
 		unable["top bar"].Visible = not unable["top bar"].Visible
-		unable["click sound"]:Play() unable["click sound 2"]:Play()
+		playclicksound()
 	end
 )
 
@@ -277,7 +283,7 @@ unable["top bar"].TextColor3 = unable["default border color"]
 unable["top bar"].Font = Enum.Font.RobotoMono
 unable["top bar"].TextSize = 15
 unable["top bar"].TextScaled = false
-unable["top bar"].Text = " unable's stupid admin panel >.<"
+unable["top bar"].Text = " [v" .. unable["version"] .. "] unable's stupid admin panel >.<"
 unable["top bar"].TextXAlignment = Enum.TextXAlignment.Left
 unable["top bar"].TextYAlignment = Enum.TextYAlignment.Center
 
@@ -394,7 +400,7 @@ unable["top bar close button text padding"].Parent = unable["top bar close butto
 unable["top bar close button"].MouseButton1Click:Connect(
 	function()
 		unable["top bar"].Visible = not unable["top bar"].Visible
-		unable["click sound"]:Play() unable["click sound 2"]:Play()
+		playclicksound()
 	end
 )
 
@@ -428,7 +434,7 @@ unable["top bar minimize button text padding"].Parent = unable["top bar minimize
 unable["top bar minimize button"].MouseButton1Click:Connect(
 	function()
 		unable["main frame"].Visible = not unable["main frame"].Visible
-		unable["click sound"]:Play() unable["click sound 2"]:Play()
+		playclicksound()
 	end
 )
 
@@ -474,30 +480,9 @@ unable["scripts tab text padding"].Parent = unable["scripts tab"]
 unable["scripts tab"].Parent = unable["main frame"]
 unable["scripts tab"].ZIndex = 19
 
-unable["scripts tab"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
-	unable["executor scrolling frame"].Visible = false
-	unable["execute button"].Visible = false
-
-	unable["next page"].Visible = true
-	unable["button holder"].Visible = true
-	unable["previous page"].Visible = true
-	unable["button holder 2"].Visible = false
-	
-	unable["list of commands"].Visible = false
-	unable["command bar"].Visible = false
-	unable["execute command button"].Visible = false
-	
-	unable["asset id type indicator"].Visible = false
-	unable["next page 2 button"].Visible = false
-	unable["previous page 2 button"].Visible = false
-	unable["switch asset id type button"].Visible = false
-	unable["switch asset id type button 2"].Visible = false
-end)
-
 -------------------------------------------------------------------------------------------------------------------------------
 
--- Create the button holder frame
+-- Create the button holder frames
 unable["button holder"] = Instance.new("Frame")
 unable["button holder"].Size = UDim2.new(0, 369, 0, 214)
 unable["button holder"].Position = UDim2.new(0, 28, 0, 32)
@@ -517,6 +502,118 @@ unable["button holder 2"].BorderSizePixel = 0
 unable["button holder 2"].Parent = unable["main frame"]
 unable["button holder 2"].ZIndex = 19
 unable["button holder 2"].Visible = false
+
+unable["button holder 3"] = Instance.new("Frame")
+unable["button holder 3"].Size = UDim2.new(0, 369, 0, 214)
+unable["button holder 3"].Position = UDim2.new(0, 28, 0, 32)
+unable["button holder 3"].BackgroundColor3 = unable["default background color"]
+unable["button holder 3"].BorderColor3 = unable["default border color"]
+unable["button holder 3"].BorderSizePixel = 0
+unable["button holder 3"].Parent = unable["main frame"]
+unable["button holder 3"].ZIndex = 19
+unable["button holder 3"].Visible = false
+
+-- Create the 'Next Page' button
+unable["next page"] = Instance.new("TextButton")
+unable["next page"].Size = UDim2.new(0, 19, 0, 214)
+unable["next page"].Position = UDim2.new(0, 378, 0, 32)
+unable["next page"].BackgroundColor3 = unable["default background color"]
+unable["next page"].BorderColor3 = unable["default border color"]
+unable["next page"].BorderSizePixel = 1
+unable["next page"].Parent = unable["main frame"]
+unable["next page"].ZIndex = 19
+unable["next page"].Visible = true
+
+unable["next page"].TextColor3 = unable["default border color"]
+unable["next page"].Font = Enum.Font.RobotoMono
+unable["next page"].TextSize = 15
+unable["next page"].TextScaled = false
+unable["next page"].Text = ">"
+unable["next page"].TextXAlignment = Enum.TextXAlignment.Center
+unable["next page"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["next page text padding"] = Instance.new("UIPadding")
+unable["next page text padding"].PaddingBottom = UDim.new(0, 1)
+unable["next page text padding"].Parent = unable["next page"]
+
+-- Create the 'Previous Page' button
+unable["previous page"] = Instance.new("TextButton")
+unable["previous page"].Size = UDim2.new(0, 19, 0, 214)
+unable["previous page"].Position = UDim2.new(0, 4, 0, 32)
+unable["previous page"].BackgroundColor3 = unable["default background color"]
+unable["previous page"].BorderColor3 = unable["default border color"]
+unable["previous page"].BorderSizePixel = 1
+unable["previous page"].Parent = unable["main frame"]
+unable["previous page"].ZIndex = 19
+unable["previous page"].Visible = true
+
+unable["previous page"].TextColor3 = unable["default border color"]
+unable["previous page"].Font = Enum.Font.RobotoMono
+unable["previous page"].TextSize = 15
+unable["previous page"].TextScaled = false
+unable["previous page"].Text = "<"
+unable["previous page"].TextXAlignment = Enum.TextXAlignment.Center
+unable["previous page"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["previous page text padding"] = Instance.new("UIPadding")
+unable["previous page text padding"].PaddingBottom = UDim.new(0, 1)
+unable["previous page text padding"].Parent = unable["previous page"]
+
+-- Table of pages
+local pages = {
+	unable["button holder"],
+	unable["button holder 2"],
+	unable["button holder 3"]
+}
+
+local currentPageIndex = 1 -- Start on the first page
+local savedPageIndex = 1 -- Variable to save the last page visited
+
+-- Function to update page visibility
+local function updatePages()
+	for index, page in ipairs(pages) do
+		page.Visible = (index == currentPageIndex)
+	end
+end
+
+-- Update the 'Next Page' button functionality
+unable["next page"].MouseButton1Click:Connect(function()
+	playclicksound()
+	currentPageIndex = currentPageIndex % #pages + 1 -- Cycle to the next page
+	savedPageIndex = currentPageIndex -- Save the new page index
+	updatePages()
+end)
+
+-- Update the 'Previous Page' button functionality
+unable["previous page"].MouseButton1Click:Connect(function()
+	playclicksound()
+	currentPageIndex = (currentPageIndex - 2) % #pages + 1 -- Cycle to the previous page
+	savedPageIndex = currentPageIndex -- Save the new page index
+	updatePages()
+end)
+
+-- Adjust the "scripts tab" button functionality
+unable["scripts tab"].MouseButton1Click:Connect(function()
+	playclicksound()
+
+	-- Hide other elements
+	unable["executor scrolling frame"].Visible = false
+	unable["execute button"].Visible = false
+	unable["list of commands"].Visible = false
+	unable["command bar"].Visible = false
+	unable["execute command button"].Visible = false
+	unable["asset id type indicator"].Visible = false
+	unable["next page 2 button"].Visible = false
+	unable["previous page 2 button"].Visible = false
+	unable["switch asset id type button"].Visible = false
+	unable["switch asset id type button 2"].Visible = false
+
+	-- Show navigation buttons and restore saved page
+	unable["next page"].Visible = true
+	unable["previous page"].Visible = true
+	currentPageIndex = savedPageIndex -- Restore the saved page
+	updatePages()
+end)
 
 -- Table to store buttons
 local buttonList = {}
@@ -556,12 +653,7 @@ function newscriptbutton(buttonText, onClick)
 
 	-- Connect the onClick function and play sounds
 	button.MouseButton1Click:Connect(function()
-		if unable["click sound"] then
-			unable["click sound"]:Play()
-		end
-		if unable["click sound 2"] then
-			unable["click sound 2"]:Play()
-		end
+		playclicksound()
 		onClick()
 	end)
 
@@ -579,7 +671,7 @@ newscriptbutton("john doe", function()
 end)
 
 newscriptbutton("DEX explorer", function()
-	require(14572394952)(unable["local player"].Name)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 newscriptbutton("goner", function()
@@ -587,7 +679,7 @@ newscriptbutton("goner", function()
 end)
 
 newscriptbutton("grab knife", function()
-	require(4690715583)(unable["local player"].Name)
+	loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Grab-knife-v4-24753"))()
 end)
 
 newscriptbutton("star glitcher", function()
@@ -631,34 +723,8 @@ newscriptbutton("infinite yield", function()
 	loadstring(game:HttpGet"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source")()
 end)
 
-newscriptbutton("chat bypasser", function()
-	local RunService = game:GetService("RunService")
-	local Players = game:GetService("Players")
-	local LocalPlayer = Players.LocalPlayer
-
-	local function setNetworkOwnership()
-		for _, part in ipairs(workspace:GetDescendants()) do
-			if part:IsA("BasePart") and part:IsDescendantOf(LocalPlayer.Character or workspace) then
-				pcall(function()
-					part:SetNetworkOwner(LocalPlayer)
-				end)
-			end
-		end
-	end
-
-	local function bypassFilter()
-		while true do
-			task.wait(0.1)
-			pcall(setNetworkOwnership)
-		end
-	end
-
-	LocalPlayer.CharacterAdded:Connect(function()
-		task.wait(1) -- Small delay for character loading
-		pcall(setNetworkOwnership)
-	end)
-
-	bypassFilter()
+newscriptbutton("mobile keyboard", function()
+	loadstring(game:HttpGet"https://gist.githubusercontent.com/RedZenXYZ/4d80bfd70ee27000660e4bfa7509c667/raw/da903c570249ab3c0c1a74f3467260972c3d87e6/KeyBoard%2520From%2520Ohio%2520Fr%2520Fr")()
 end)
 
 -- Table to store buttons
@@ -699,12 +765,7 @@ function newscriptbutton2(buttonText, onClick)
 
 	-- Connect the onClick function and play sounds
 	button.MouseButton1Click:Connect(function()
-		if unable["click sound"] then
-			unable["click sound"]:Play()
-		end
-		if unable["click sound 2"] then
-			unable["click sound 2"]:Play()
-		end
+		playclicksound()
 		onClick()
 	end)
 
@@ -775,64 +836,79 @@ newscriptbutton2("unanchor map", function()
 	end
 end)
 
--------------------------------------------------------------------------------------------------------------------------------
+-- Table to store buttons
+local buttonList3 = {}
 
-unable["next page"] = Instance.new("TextButton")
-unable["next page"].Size = UDim2.new(0, 19, 0, 214)
-unable["next page"].Position = UDim2.new(0, 378, 0, 32)
-unable["next page"].BackgroundColor3 = unable["default background color"]
-unable["next page"].BorderColor3 = unable["default border color"]
-unable["next page"].BorderSizePixel = 1
-unable["next page"].Parent = unable["main frame"]
-unable["next page"].ZIndex = 19
-unable["next page"].Visible = true
+-- Function to create a new button
+function newscriptbutton3(buttonText, onClick)
+	-- Ensure there are no more than 9 buttons
+	if #buttonList3 >= 9 then
+		warn("Maximum of 9 buttons reached.")
+		return
+	end
 
-unable["next page"].TextColor3 = unable["default border color"]
-unable["next page"].Font = Enum.Font.RobotoMono
-unable["next page"].TextSize = 15
-unable["next page"].TextScaled = false
-unable["next page"].Text = ">"
-unable["next page"].TextXAlignment = Enum.TextXAlignment.Center
-unable["next page"].TextYAlignment = Enum.TextYAlignment.Center
+	-- Calculate button position based on index
+	local index = #buttonList3 + 1
+	local row = math.floor((index - 1) / 3) -- Row index (0, 1, 2)
+	local column = (index - 1) % 3 -- Column index (0, 1, 2)
+	local xOffset = column * 117 -- Horizontal spacing
+	local yOffset = row * 73 -- Vertical spacing (68 height + 6 spacing)
 
-unable["next page text padding"] = Instance.new("UIPadding")
-unable["next page text padding"].PaddingBottom = UDim.new(0, 1)
-unable["next page text padding"].Parent = unable["next page"]
+	-- Create the button
+	local button = Instance.new("TextButton")
+	button.Size = UDim2.new(0, 111, 0, 68)
+	button.Position = UDim2.new(0, xOffset, 0, yOffset)
+	button.BackgroundColor3 = unable["default background color"]
+	button.BorderColor3 = unable["default border color"]
+	button.BorderSizePixel = 1
+	button.TextColor3 = unable["default border color"]
+	button.Font = Enum.Font.RobotoMono
+	button.TextSize = 15
+	button.TextScaled = false
+	button.Text = buttonText
+	button.TextXAlignment = Enum.TextXAlignment.Center
+	button.TextYAlignment = Enum.TextYAlignment.Center
+	button.Parent = unable["button holder 3"]
+	button.ZIndex = 19
+	button.Visible = true
 
-unable["next page"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
-	unable["button holder"].Visible = false
-	unable["button holder 2"].Visible = true
+	-- Connect the onClick function and play sounds
+	button.MouseButton1Click:Connect(function()
+		playclicksound()
+		onClick()
+	end)
+
+	-- Add the button to the list
+	table.insert(buttonList3, button)
+end
+
+-- Example usage:
+newscriptbutton3("jerk off tool", function()
+	loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))("Spider Script")
 end)
 
--------------------------------------------------------------------------------------------------------------------------------
+newscriptbutton3("[empty]", function()
+end)
 
-unable["previous page"] = Instance.new("TextButton")
-unable["previous page"].Size = UDim2.new(0, 19, 0, 214)
-unable["previous page"].Position = UDim2.new(0, 4, 0, 32)
-unable["previous page"].BackgroundColor3 = unable["default background color"]
-unable["previous page"].BorderColor3 = unable["default border color"]
-unable["previous page"].BorderSizePixel = 1
-unable["previous page"].Parent = unable["main frame"]
-unable["previous page"].ZIndex = 19
-unable["previous page"].Visible = true
+newscriptbutton3("[empty]", function()
+end)
 
-unable["previous page"].TextColor3 = unable["default border color"]
-unable["previous page"].Font = Enum.Font.RobotoMono
-unable["previous page"].TextSize = 15
-unable["previous page"].TextScaled = false
-unable["previous page"].Text = "<"
-unable["previous page"].TextXAlignment = Enum.TextXAlignment.Center
-unable["previous page"].TextYAlignment = Enum.TextYAlignment.Center
+newscriptbutton3("[empty]", function()
+end)
 
-unable["previous page text padding"] = Instance.new("UIPadding")
-unable["previous page text padding"].PaddingBottom = UDim.new(0, 1)
-unable["previous page text padding"].Parent = unable["previous page"]
+newscriptbutton3("[empty]", function()
+end)
 
-unable["previous page"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
-	unable["button holder"].Visible = true
-	unable["button holder 2"].Visible = false
+newscriptbutton3("[empty]", function()
+end)
+
+newscriptbutton3("[empty]", function()
+end)
+
+newscriptbutton3("[empty]", function()
+end)
+
+newscriptbutton3("[empty]", function()
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -863,14 +939,15 @@ unable["commands tab"].Parent = unable["main frame"]
 unable["commands tab"].ZIndex = 19
 
 unable["commands tab"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	playclicksound()
 	unable["executor scrolling frame"].Visible = false
 	unable["execute button"].Visible = false
 
 	unable["next page"].Visible = false
-	unable["button holder"].Visible = false
 	unable["previous page"].Visible = false
+	unable["button holder"].Visible = false
 	unable["button holder 2"].Visible = false
+	unable["button holder 3"].Visible = false
 	
 	unable["list of commands"].Visible = true
 	unable["command bar"].Visible = true
@@ -897,6 +974,7 @@ unable["list of commands"].CanvasSize = UDim2.new(0, 0, 0, 0) -- Dynamically adj
 unable["list of commands"].Parent = unable["main frame"]
 unable["list of commands"].ZIndex = 19
 unable["list of commands"].Visible = false
+unable["list of commands"].ScrollingDirection = Enum.ScrollingDirection.Y
 
 -- Add padding for aesthetics
 local listPadding = Instance.new("UIPadding")
@@ -980,6 +1058,7 @@ local commandList = {
 	"unchromaify [target]",
 	"coolrainbow [target]",
 	"uncoolrainbow [target]",
+	"forceplace [target] [game id]",
 	"",
 	"decalspam [image id]",
 	"billboardspam [image id]",
@@ -990,6 +1069,9 @@ local commandList = {
 	"objectrain [mesh id] [texture id]",
 	"replaceparts [mesh id] [texture id]",
 	"replaceplayerparts [mesh id] [texture id]",
+	"restoremap",
+	"hint [message] [seconds]",
+	"closehints",
 	"",
 	"gear [target] [gear id]",
 	"customgear [mesh id] [texture id]",
@@ -1092,7 +1174,7 @@ unable["execute command button"].Parent = unable["main frame"]
 unable["execute command button"].ZIndex = 19
 
 unable["execute command button"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	playclicksound()
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -1122,27 +1204,6 @@ unable["asset ids tab text padding"].Parent = unable["asset ids tab"]
 unable["asset ids tab"].Parent = unable["main frame"]
 unable["asset ids tab"].ZIndex = 19
 
-unable["asset ids tab"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
-	unable["executor scrolling frame"].Visible = false
-	unable["execute button"].Visible = false
-
-	unable["next page"].Visible = false
-	unable["button holder"].Visible = false
-	unable["previous page"].Visible = false
-	unable["button holder 2"].Visible = false
-	
-	unable["list of commands"].Visible = false
-	unable["command bar"].Visible = false
-	unable["execute command button"].Visible = false
-	
-	unable["asset id type indicator"].Visible = true
-	unable["next page 2 button"].Visible = true
-	unable["previous page 2 button"].Visible = true
-	unable["switch asset id type button"].Visible = true
-	unable["switch asset id type button 2"].Visible = true
-end)
-
 -------------------------------------------------------------------------------------------------------------------------------
 
 unable["asset id type indicator"] = Instance.new("TextLabel")
@@ -1155,7 +1216,7 @@ unable["asset id type indicator"].TextColor3 = unable["default border color"]
 unable["asset id type indicator"].Font = Enum.Font.RobotoMono
 unable["asset id type indicator"].TextSize = 15
 unable["asset id type indicator"].TextScaled = false
-unable["asset id type indicator"].Text = " ~ MESH IDS ~"
+unable["asset id type indicator"].Text = "MESH IDS [0/0]"
 unable["asset id type indicator"].TextXAlignment = Enum.TextXAlignment.Center
 unable["asset id type indicator"].TextYAlignment = Enum.TextYAlignment.Center
 unable["asset id type indicator text padding"] = Instance.new("UIPadding")
@@ -1206,6 +1267,70 @@ unable["switch asset id type button 2"].Visible = false
 unable["switch asset id type button 2 text padding"] = Instance.new("UIPadding")
 unable["switch asset id type button 2 text padding"].PaddingTop = UDim.new(0, -4)
 unable["switch asset id type button 2 text padding"].Parent = unable["switch asset id type button 2"]
+
+-- Define variables to track pages
+local assetIdPages = {"mesh IDs [page 0/0]", "image IDs [page 0/0]", "sound IDs [page 0/0]", "gear IDs [page 0/0]"} -- Example pages
+local currentAssetIdPageIndex = 1 -- Default to the first page
+local savedAssetIdPageIndex = 1 -- To save the last visited page
+
+-- Function to update the asset ID type indicator
+local function updateAssetIdTypeIndicator()
+	unable["asset id type indicator"].Text = assetIdPages[currentAssetIdPageIndex]
+end
+
+-- Save the current page when switching tabs
+unable["asset ids tab"].MouseButton1Click:Connect(function()
+	playclicksound()
+	-- Hide other elements
+	unable["executor scrolling frame"].Visible = false
+	unable["execute button"].Visible = false
+	unable["next page"].Visible = false
+	unable["previous page"].Visible = false
+	unable["button holder"].Visible = false
+	unable["button holder 2"].Visible = false
+	unable["button holder 3"].Visible = false
+	unable["list of commands"].Visible = false
+	unable["command bar"].Visible = false
+	unable["execute command button"].Visible = false
+
+	-- Show asset ID-related elements
+	unable["asset id type indicator"].Visible = true
+	unable["next page 2 button"].Visible = true
+	unable["previous page 2 button"].Visible = true
+	unable["switch asset id type button"].Visible = true
+	unable["switch asset id type button 2"].Visible = true
+
+	-- Restore saved page
+	currentAssetIdPageIndex = savedAssetIdPageIndex
+	updateAssetIdTypeIndicator()
+end)
+
+-- Switch to the previous asset ID type
+unable["switch asset id type button"].MouseButton1Click:Connect(function()
+	playclicksound()
+
+	currentAssetIdPageIndex = (currentAssetIdPageIndex - 2) % #assetIdPages + 1 -- Wrap around to the last page if necessary
+	savedAssetIdPageIndex = currentAssetIdPageIndex -- Save the new page index
+	updateAssetIdTypeIndicator()
+end)
+
+-- Switch to the next asset ID type
+unable["switch asset id type button 2"].MouseButton1Click:Connect(function()
+	playclicksound()
+	
+	currentAssetIdPageIndex = currentAssetIdPageIndex % #assetIdPages + 1 -- Wrap around to the first page if necessary
+	savedAssetIdPageIndex = currentAssetIdPageIndex -- Save the new page index
+	updateAssetIdTypeIndicator()
+end)
+
+-- Reset to the first page when execute command button is clicked
+unable["execute command button"].MouseButton1Click:Connect(function()
+	playclicksound()
+
+	currentAssetIdPageIndex = 1
+	savedAssetIdPageIndex = currentAssetIdPageIndex -- Save the reset page index
+	updateAssetIdTypeIndicator()
+end)
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -1277,14 +1402,15 @@ unable["executor tab"].Parent = unable["main frame"]
 unable["executor tab"].ZIndex = 19
 
 unable["executor tab"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	playclicksound()
 	unable["executor scrolling frame"].Visible = true
 	unable["execute button"].Visible = true
 
 	unable["next page"].Visible = false
-	unable["button holder"].Visible = false
 	unable["previous page"].Visible = false
+	unable["button holder"].Visible = false
 	unable["button holder 2"].Visible = false
+	unable["button holder 3"].Visible = false
 	
 	unable["list of commands"].Visible = false
 	unable["command bar"].Visible = false
@@ -1312,6 +1438,7 @@ unable["executor scrolling frame"].CanvasSize = UDim2.new(0, 0, 0, 0) -- Dynamic
 unable["executor scrolling frame"].Parent = unable["main frame"]
 unable["executor scrolling frame"].ZIndex = 19
 unable["executor scrolling frame"].Visible = false
+unable["executor scrolling frame"].ScrollingDirection = Enum.ScrollingDirection.Y
 
 -- Create the TextBox inside the ScrollingFrame
 unable["executor textbox"] = Instance.new("TextBox")
@@ -1409,13 +1536,13 @@ local textBox = unable["executor textbox"] -- TextBox for code input
 unable["execute button"].MouseButton1Click:Connect(function()
 	local code = textBox.Text -- Get the text from the TextBox
 	if code and code ~= "" then
-		unable["click sound"]:Play() unable["click sound 2"]:Play()
+		playclicksound()
 		remoteEvent:FireServer(code) -- Send the code to the server for execution
 	end
 end) ]]--
 
 unable["execute button"].MouseButton1Click:Connect(function()
-	unable["click sound"]:Play() unable["click sound 2"]:Play()
+	playclicksound()
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
