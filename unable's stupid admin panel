@@ -10,7 +10,7 @@
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
 wait(0.1) local unable = {}
-   
+
 ---------------------------------------------------------------------------------------------------------------------------]]--
 
 unable["test game"] = 118022198489171
@@ -61,6 +61,7 @@ end
 
 unable["default background color"] = Color3.fromHex("252539")
 unable["default border color"] = Color3.fromHex("4051ED")
+unable["default 1/2 color"] = Color3.fromHex("293489")
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -84,10 +85,10 @@ unable["toggle interface visibility button"].Position = UDim2.new(0, 0, 10, 0)
 unable["toggle interface visibility button"].BackgroundColor3 = unable["default background color"]
 
 unable["toggle interface visibility button"].BorderColor3 = unable["default border color"]
-unable["toggle interface visibility button"].BorderSizePixel = 1
+unable["toggle interface visibility button"].BorderSizePixel = 0
 
 unable["toggle interface visibility button"].TextColor3 = unable["default border color"]
-unable["toggle interface visibility button"].Font = Enum.Font.Code
+unable["toggle interface visibility button"].Font = Enum.Font.RobotoMono
 unable["toggle interface visibility button"].TextSize = 20
 unable["toggle interface visibility button"].TextScaled = false
 unable["toggle interface visibility button"].Text = ">.<"
@@ -100,6 +101,10 @@ unable["toggle interface visibility button text padding"].Parent = unable["textb
 
 unable["toggle interface visibility button"].Parent = unable["screen gui"]
 unable["toggle interface visibility button"].ZIndex = 50
+
+unable["tivb ui rounded corner"] = Instance.new"UICorner"
+unable["tivb ui rounded corner"].CornerRadius = UDim.new(0.3, 0)
+unable["tivb ui rounded corner"].Parent = unable["toggle interface visibility button"]
 
 function movebutton()
 	local screenWidth = game:GetService("Workspace").CurrentCamera.ViewportSize.X
@@ -136,9 +141,15 @@ end
 
 unable["tivb border"] = Instance.new("Frame")
 unable["tivb border"].Size = UDim2.new(0, 50, 0, 50)
+unable["tivb border"].BackgroundColor3 = Color3.new(1,1,1)
 unable["tivb border"].Position = UDim2.new(-2E-2, 0, -2E-2, 0)
 unable["tivb border"].Parent = unable["toggle interface visibility button"]
 unable["tivb border"].BorderSizePixel = 0
+unable["tivb border"].ZIndex = 49
+
+unable["tivb border rounded corner"] = Instance.new"UICorner"
+unable["tivb border rounded corner"].CornerRadius = UDim.new(0.3, 0)
+unable["tivb border rounded corner"].Parent = unable["tivb border"]
 
 function dragbutton()
 	local frame = unable["toggle interface visibility button"]
@@ -180,9 +191,9 @@ function addgradient()
 	local gradient = Instance.new("UIGradient")
 	gradient.Color =
 		ColorSequence.new {
-			ColorSequenceKeypoint.new(0, Color3.fromHex("4051ED")),
-			ColorSequenceKeypoint.new(0.5, Color3.fromHex("252539")),
-			ColorSequenceKeypoint.new(1, Color3.fromHex("4051ED"))
+			ColorSequenceKeypoint.new(0, unable["default border color"]),
+			ColorSequenceKeypoint.new(0.5, unable["default background color"]),
+			ColorSequenceKeypoint.new(1, unable["default border color"])
 		}
 	gradient.Parent = unable["tivb border"]
 
@@ -236,7 +247,7 @@ unable["textbox"].BorderSizePixel = 1
 unable["textbox"].TextColor3 = unable["default border color"]
 unable["textbox"].TextStrokeTransparency = 1
 unable["textbox"].TextStrokeColor3 = unable["default background color"]
-unable["textbox"].Font = Enum.Font.Code
+unable["textbox"].Font = Enum.Font.RobotoMono
 unable["textbox"].TextSize = 20
 unable["textbox"].TextScaled = false
 unable["textbox"].Text = "text"
@@ -255,7 +266,7 @@ unable["textbox"].ZIndex = 1
 
 unable["top bar"] = Instance.new("TextLabel")
 
-unable["top bar"].Size = UDim2.new(0, 400, 0, 26)
+unable["top bar"].Size = UDim2.new(0, 401, 0, 26)
 
 unable["top bar"].BackgroundColor3 = unable["default background color"]
 
@@ -263,7 +274,7 @@ unable["top bar"].BorderColor3 = unable["default border color"]
 unable["top bar"].BorderSizePixel = 1
 
 unable["top bar"].TextColor3 = unable["default border color"]
-unable["top bar"].Font = Enum.Font.Code
+unable["top bar"].Font = Enum.Font.RobotoMono
 unable["top bar"].TextSize = 15
 unable["top bar"].TextScaled = false
 unable["top bar"].Text = "unable's stupid admin panel >.<"
@@ -272,12 +283,16 @@ unable["top bar"].TextYAlignment = Enum.TextYAlignment.Center
 
 unable["top bar text padding"] = Instance.new("UIPadding")
 unable["top bar text padding"].PaddingLeft = UDim.new(0, 0)
-unable["top bar text padding"].PaddingRight = UDim.new(0, 110)
+unable["top bar text padding"].PaddingRight = UDim.new(0, 178)
 unable["top bar text padding"].Parent = unable["top bar"]
 
 unable["top bar"].Parent = unable["screen gui"]
 unable["top bar"].ZIndex = 19
 unable["top bar"].Visible = false
+
+--[[
+
+unable["top bar text padding"].PaddingRight = UDim.new(0, 110)
 
 unable["top bar icon"] = Instance.new("ImageLabel")
 
@@ -296,15 +311,17 @@ unable["top bar icon"].ImageColor3 = unable["default border color"]
 unable["top bar icon"].Parent = unable["top bar"]
 unable["top bar icon"].ZIndex = 20
 
+]]--
+
 function centertopbar()
 	local screenWidth = game:GetService"Workspace".CurrentCamera.ViewportSize.X
 	local screenHeight = game:GetService"Workspace".CurrentCamera.ViewportSize.Y
 
-	local frameWidth = 400
+	local frameWidth = 401
 	local frameHeight = 276
 	local centerX = (screenWidth - frameWidth) / 2
 	local centerY = (screenHeight - frameHeight) / 2 - 61
-	
+
 	unable["top bar"].Position = UDim2.new(0, centerX, 0, centerY)
 end
 
@@ -360,7 +377,7 @@ unable["top bar close button"].BorderColor3 = unable["default border color"]
 unable["top bar close button"].BorderSizePixel = 1
 
 unable["top bar close button"].TextColor3 = unable["default border color"]
-unable["top bar close button"].Font = Enum.Font.Code
+unable["top bar close button"].Font = Enum.Font.RobotoMono
 unable["top bar close button"].TextSize = 20
 unable["top bar close button"].TextScaled = false
 unable["top bar close button"].Text = "x"
@@ -371,7 +388,7 @@ unable["top bar close button"].Parent = unable["top bar"]
 unable["top bar close button"].ZIndex = 20
 
 unable["top bar close button text padding"] = Instance.new("UIPadding")
-unable["top bar close button text padding"].PaddingTop = UDim.new(0, -5)
+unable["top bar close button text padding"].PaddingTop = UDim.new(0, -4)
 unable["top bar close button text padding"].Parent = unable["top bar close button"]
 
 unable["top bar close button"].MouseButton1Click:Connect(
@@ -394,7 +411,7 @@ unable["top bar minimize button"].BorderColor3 = unable["default border color"]
 unable["top bar minimize button"].BorderSizePixel = 1
 
 unable["top bar minimize button"].TextColor3 = unable["default border color"]
-unable["top bar minimize button"].Font = Enum.Font.Code
+unable["top bar minimize button"].Font = Enum.Font.RobotoMono
 unable["top bar minimize button"].TextSize = 20
 unable["top bar minimize button"].TextScaled = false
 unable["top bar minimize button"].Text = "-"
@@ -414,12 +431,12 @@ unable["top bar minimize button"].MouseButton1Click:Connect(
 		unable["click sound"]:Play() unable["click sound 2"]:Play()
 	end
 )
-	
+
 -------------------------------------------------------------------------------------------------------------------------------
 
 unable["main frame"] = Instance.new("Frame")
 
-unable["main frame"].Size = UDim2.new(0, 400, 0, 250)
+unable["main frame"].Size = UDim2.new(0, 401, 0, 250)
 unable["main frame"].Position = UDim2.new(0, 0, 1, 0)
 
 unable["main frame"].BackgroundColor3 = unable["default background color"]
@@ -443,7 +460,7 @@ unable["scripts tab"].BorderColor3 = unable["default border color"]
 unable["scripts tab"].BorderSizePixel = 1
 
 unable["scripts tab"].TextColor3 = unable["default border color"]
-unable["scripts tab"].Font = Enum.Font.Code
+unable["scripts tab"].Font = Enum.Font.RobotoMono
 unable["scripts tab"].TextSize = 15
 unable["scripts tab"].TextScaled = false
 unable["scripts tab"].Text = "scripts"
@@ -461,19 +478,29 @@ unable["scripts tab"].MouseButton1Click:Connect(function()
 	unable["click sound"]:Play() unable["click sound 2"]:Play()
 	unable["executor scrolling frame"].Visible = false
 	unable["execute button"].Visible = false
-	
+
 	unable["next page"].Visible = true
 	unable["button holder"].Visible = true
-	unable["previous page"].Visible = false
+	unable["previous page"].Visible = true
 	unable["button holder 2"].Visible = false
+	
+	unable["list of commands"].Visible = false
+	unable["command bar"].Visible = false
+	unable["execute command button"].Visible = false
+	
+	unable["asset id type indicator"].Visible = false
+	unable["next page 2 button"].Visible = false
+	unable["previous page 2 button"].Visible = false
+	unable["switch asset id type button"].Visible = false
+	unable["switch asset id type button 2"].Visible = false
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
 
 -- Create the button holder frame
 unable["button holder"] = Instance.new("Frame")
-unable["button holder"].Size = UDim2.new(0, 368, 0, 214)
-unable["button holder"].Position = UDim2.new(0, 4, 0, 32)
+unable["button holder"].Size = UDim2.new(0, 369, 0, 214)
+unable["button holder"].Position = UDim2.new(0, 28, 0, 32)
 unable["button holder"].BackgroundColor3 = unable["default background color"]
 unable["button holder"].BorderColor3 = unable["default border color"]
 unable["button holder"].BorderSizePixel = 0
@@ -482,8 +509,8 @@ unable["button holder"].ZIndex = 19
 unable["button holder"].Visible = true
 
 unable["button holder 2"] = Instance.new("Frame")
-unable["button holder 2"].Size = UDim2.new(0, 368, 0, 214)
-unable["button holder 2"].Position = UDim2.new(0, 29, 0, 32)
+unable["button holder 2"].Size = UDim2.new(0, 369, 0, 214)
+unable["button holder 2"].Position = UDim2.new(0, 28, 0, 32)
 unable["button holder 2"].BackgroundColor3 = unable["default background color"]
 unable["button holder 2"].BorderColor3 = unable["default border color"]
 unable["button holder 2"].BorderSizePixel = 0
@@ -506,18 +533,18 @@ function newscriptbutton(buttonText, onClick)
 	local index = #buttonList + 1
 	local row = math.floor((index - 1) / 3) -- Row index (0, 1, 2)
 	local column = (index - 1) % 3 -- Column index (0, 1, 2)
-	local xOffset = column * 124 -- Horizontal spacing
+	local xOffset = column * 117 -- Horizontal spacing
 	local yOffset = row * 73 -- Vertical spacing (68 height + 6 spacing)
 
 	-- Create the button
 	local button = Instance.new("TextButton")
-	button.Size = UDim2.new(0, 119, 0, 68)
+	button.Size = UDim2.new(0, 111, 0, 68)
 	button.Position = UDim2.new(0, xOffset, 0, yOffset)
 	button.BackgroundColor3 = unable["default background color"]
 	button.BorderColor3 = unable["default border color"]
 	button.BorderSizePixel = 1
 	button.TextColor3 = unable["default border color"]
-	button.Font = Enum.Font.Code
+	button.Font = Enum.Font.RobotoMono
 	button.TextSize = 15
 	button.TextScaled = false
 	button.Text = buttonText
@@ -544,7 +571,7 @@ end
 
 -- Example usage:
 newscriptbutton("immortality\nlord", function()
-    require(6534274227)(unable["local player"].Name)
+	require(6534274227)(unable["local player"].Name)
 end)
 
 newscriptbutton("john doe", function()
@@ -588,7 +615,7 @@ newscriptbutton("clear map", function()
 
 		return baseplate
 	end
-	
+
 	local baseplate = ensureBaseplate() -- Ensure a baseplate exists
 	local camera = workspace:FindFirstChild("Camera")
 
@@ -649,18 +676,18 @@ function newscriptbutton2(buttonText, onClick)
 	local index = #buttonList2 + 1
 	local row = math.floor((index - 1) / 3) -- Row index (0, 1, 2)
 	local column = (index - 1) % 3 -- Column index (0, 1, 2)
-	local xOffset = column * 124 -- Horizontal spacing
+	local xOffset = column * 117 -- Horizontal spacing
 	local yOffset = row * 73 -- Vertical spacing (68 height + 6 spacing)
 
 	-- Create the button
 	local button = Instance.new("TextButton")
-	button.Size = UDim2.new(0, 119, 0, 68)
+	button.Size = UDim2.new(0, 111, 0, 68)
 	button.Position = UDim2.new(0, xOffset, 0, yOffset)
 	button.BackgroundColor3 = unable["default background color"]
 	button.BorderColor3 = unable["default border color"]
 	button.BorderSizePixel = 1
 	button.TextColor3 = unable["default border color"]
-	button.Font = Enum.Font.Code
+	button.Font = Enum.Font.RobotoMono
 	button.TextSize = 15
 	button.TextScaled = false
 	button.Text = buttonText
@@ -736,7 +763,7 @@ newscriptbutton2("wallwalk", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/wallwalker.lua"))()
 end)
 
-newscriptbutton2("scriptspy", function()
+newscriptbutton2("remote spy", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/SimpleSpy/refs/heads/main/Mobile.lua"))()
 end)
 
@@ -751,8 +778,8 @@ end)
 -------------------------------------------------------------------------------------------------------------------------------
 
 unable["next page"] = Instance.new("TextButton")
-unable["next page"].Size = UDim2.new(0, 20, 0, 214)
-unable["next page"].Position = UDim2.new(0, 376, 0, 32)
+unable["next page"].Size = UDim2.new(0, 19, 0, 214)
+unable["next page"].Position = UDim2.new(0, 378, 0, 32)
 unable["next page"].BackgroundColor3 = unable["default background color"]
 unable["next page"].BorderColor3 = unable["default border color"]
 unable["next page"].BorderSizePixel = 1
@@ -761,7 +788,7 @@ unable["next page"].ZIndex = 19
 unable["next page"].Visible = true
 
 unable["next page"].TextColor3 = unable["default border color"]
-unable["next page"].Font = Enum.Font.Code
+unable["next page"].Font = Enum.Font.RobotoMono
 unable["next page"].TextSize = 15
 unable["next page"].TextScaled = false
 unable["next page"].Text = ">"
@@ -769,31 +796,29 @@ unable["next page"].TextXAlignment = Enum.TextXAlignment.Center
 unable["next page"].TextYAlignment = Enum.TextYAlignment.Center
 
 unable["next page text padding"] = Instance.new("UIPadding")
-unable["next page text padding"].PaddingBottom = UDim.new(0, 10)
+unable["next page text padding"].PaddingBottom = UDim.new(0, 1)
 unable["next page text padding"].Parent = unable["next page"]
 
 unable["next page"].MouseButton1Click:Connect(function()
 	unable["click sound"]:Play() unable["click sound 2"]:Play()
-	unable["next page"].Visible = false
 	unable["button holder"].Visible = false
-	unable["previous page"].Visible = true
 	unable["button holder 2"].Visible = true
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
 
 unable["previous page"] = Instance.new("TextButton")
-unable["previous page"].Size = UDim2.new(0, 20, 0, 214)
+unable["previous page"].Size = UDim2.new(0, 19, 0, 214)
 unable["previous page"].Position = UDim2.new(0, 4, 0, 32)
 unable["previous page"].BackgroundColor3 = unable["default background color"]
 unable["previous page"].BorderColor3 = unable["default border color"]
 unable["previous page"].BorderSizePixel = 1
 unable["previous page"].Parent = unable["main frame"]
 unable["previous page"].ZIndex = 19
-unable["previous page"].Visible = false
+unable["previous page"].Visible = true
 
 unable["previous page"].TextColor3 = unable["default border color"]
-unable["previous page"].Font = Enum.Font.Code
+unable["previous page"].Font = Enum.Font.RobotoMono
 unable["previous page"].TextSize = 15
 unable["previous page"].TextScaled = false
 unable["previous page"].Text = "<"
@@ -801,14 +826,12 @@ unable["previous page"].TextXAlignment = Enum.TextXAlignment.Center
 unable["previous page"].TextYAlignment = Enum.TextYAlignment.Center
 
 unable["previous page text padding"] = Instance.new("UIPadding")
-unable["previous page text padding"].PaddingBottom = UDim.new(0, 10)
+unable["previous page text padding"].PaddingBottom = UDim.new(0, 1)
 unable["previous page text padding"].Parent = unable["previous page"]
 
 unable["previous page"].MouseButton1Click:Connect(function()
 	unable["click sound"]:Play() unable["click sound 2"]:Play()
-	unable["next page"].Visible = true
 	unable["button holder"].Visible = true
-	unable["previous page"].Visible = false
 	unable["button holder 2"].Visible = false
 end)
 
@@ -825,7 +848,7 @@ unable["commands tab"].BorderColor3 = unable["default border color"]
 unable["commands tab"].BorderSizePixel = 1
 
 unable["commands tab"].TextColor3 = unable["default border color"]
-unable["commands tab"].Font = Enum.Font.Code
+unable["commands tab"].Font = Enum.Font.RobotoMono
 unable["commands tab"].TextSize = 15
 unable["commands tab"].TextScaled = false
 unable["commands tab"].Text = "commands"
@@ -843,11 +866,233 @@ unable["commands tab"].MouseButton1Click:Connect(function()
 	unable["click sound"]:Play() unable["click sound 2"]:Play()
 	unable["executor scrolling frame"].Visible = false
 	unable["execute button"].Visible = false
-	
+
 	unable["next page"].Visible = false
 	unable["button holder"].Visible = false
 	unable["previous page"].Visible = false
 	unable["button holder 2"].Visible = false
+	
+	unable["list of commands"].Visible = true
+	unable["command bar"].Visible = true
+	unable["execute command button"].Visible = true
+	
+	unable["asset id type indicator"].Visible = false
+	unable["next page 2 button"].Visible = false
+	unable["previous page 2 button"].Visible = false
+	unable["switch asset id type button"].Visible = false
+	unable["switch asset id type button 2"].Visible = false
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["list of commands"] = Instance.new("ScrollingFrame")
+unable["list of commands"].Size = UDim2.new(0, 393, 0, 164)
+unable["list of commands"].Position = UDim2.new(0, 4, 0, 32)
+unable["list of commands"].BackgroundColor3 = unable["default background color"]
+unable["list of commands"].BorderColor3 = unable["default border color"]
+unable["list of commands"].BorderSizePixel = 1
+unable["list of commands"].ScrollBarThickness = 8
+unable["list of commands"].ScrollBarImageColor3 = unable["default 1/2 color"]
+unable["list of commands"].CanvasSize = UDim2.new(0, 0, 0, 0) -- Dynamically adjusted later
+unable["list of commands"].Parent = unable["main frame"]
+unable["list of commands"].ZIndex = 19
+unable["list of commands"].Visible = false
+
+-- Add padding for aesthetics
+local listPadding = Instance.new("UIPadding")
+listPadding.PaddingLeft = UDim.new(0, 4)
+listPadding.PaddingTop = UDim.new(0, 4)
+listPadding.Parent = unable["list of commands"]
+
+-- Add a UIListLayout to manage positioning of TextLabels
+local layout = Instance.new("UIListLayout")
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Padding = UDim.new(0, 0) -- Add spacing between items
+layout.Parent = unable["list of commands"]
+
+-- Ensure CanvasSize updates dynamically
+layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+	unable["list of commands"].CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 10)
+end)
+
+-- Reusable function to populate a scrolling frame with text
+function populateList(scrollFrame, entries)
+	for _, text in ipairs(entries) do
+		local line = Instance.new("TextLabel")
+		line.Size = UDim2.new(1, -10, 0, 16) -- Full width, fixed height
+		line.TextColor3 = unable["default border color"]
+		line.BackgroundTransparency = 1
+		line.Font = Enum.Font.RobotoMono
+		line.TextSize = 15
+		line.TextScaled = false
+		line.Text = text
+		line.TextWrapped = false
+		line.TextXAlignment = Enum.TextXAlignment.Left
+		line.ZIndex = 20
+		line.Parent = scrollFrame
+	end
+end
+
+-- Example usage: Populating the list of commands
+local commandList = {
+	"kill [target]",
+	"fling [target]",
+	"superfling [target]",
+	"freeze [target]",
+	"thaw [target]",
+	"kick [target]",
+	"ban [target]",
+	"accountdelete [target]",
+	"explode [target]",
+	"bang [target]",
+	"unbang",
+	"carpet [target]",
+	"uncarpet",
+	"facebang [target]",
+	"unfacebang",
+	"jumpscare [target] [image id]",
+	"popup [target] [image id]",
+	"unpopup [target]",
+	"playaudio [target] [sound id]",
+	"headbillboard [target] [image id]",
+	"unheadbillboard [target]",
+	"torsobillboard [target] [image id]",
+	"untorsobillboard [target]",
+	"punish [target]",
+	"unpunish [target]",
+	"spin [target]",
+	"unspin [target]",
+	"orbit [target] [speed] [offset]",
+	"unorbit",
+	"follow [target]",
+	"unfollow",
+	"message [target] [seconds]",
+	"closemessage [target]",
+	"creeper [target]",
+	"uncreeper [target]",
+	"headless [target]",
+	"unheadless [target]",
+	"hairless [target]",
+	"unhairless [target]",
+	"accessoryless [target]",
+	"unaccessoryless [target]",
+	"chromaify [target] [speed]",
+	"unchromaify [target]",
+	"coolrainbow [target]",
+	"uncoolrainbow [target]",
+	"",
+	"decalspam [image id]",
+	"billboardspam [image id]",
+	"replaceskybox [image id]",
+	"billboardrain [image id]",
+	"unbillboardrain",
+	"",
+	"objectrain [mesh id] [texture id]",
+	"replaceparts [mesh id] [texture id]",
+	"replaceplayerparts [mesh id] [texture id]",
+	"",
+	"gear [target] [gear id]",
+	"customgear [mesh id] [texture id]",
+	"btools [target]",
+	"sword [target]",
+	"portalgun [target]",
+	"gun [target]",
+	"minigun [target]",
+	"hairdryer [target]",
+	"",
+	"cooldance [target]",
+	"uncooldance [target]",
+	"dance1 [target]",
+	"undance1 [target]",
+	"dance2 [target]",
+	"undance2 [target]",
+	"dance3 [target]",
+	"undance3 [target]",
+	"wave [target]",
+	"cheer [target]",
+	"laugh [target]",
+	"customdance [target]",
+	"playanim [target] [animation id]",
+	"spasm [target]",
+	"unspasm [target]",
+	"tpose [target]",
+	"untpose [target]",
+	"stopanim [target]",
+	"reanim [target]",
+	"headslide [target]",
+	"headthrow [target]",
+}
+
+populateList(unable["list of commands"], commandList)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["command bar"] = Instance.new("TextBox")
+
+unable["command bar"].Size = UDim2.new(0, 343, 0, 45)
+unable["command bar"].Position = UDim2.new(0, 4, 0, 201)
+
+unable["command bar"].BackgroundColor3 = unable["default background color"]
+
+unable["command bar"].BorderColor3 = unable["default border color"]
+unable["command bar"].BorderSizePixel = 1
+
+unable["command bar"].TextColor3 = unable["default border color"]
+unable["command bar"].Font = Enum.Font.RobotoMono
+unable["command bar"].TextSize = 15
+unable["command bar"].TextScaled = false
+unable["command bar"].PlaceholderText = "type command here"
+unable["command bar"].PlaceholderColor3 = unable["default 1/2 color"]
+unable["command bar"].ClearTextOnFocus = true
+unable["command bar"].Text = ""
+unable["command bar"].TextXAlignment = Enum.TextXAlignment.Center
+unable["command bar"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["command bar text padding"] = Instance.new("UIPadding")
+unable["command bar text padding"].PaddingLeft = UDim.new(0, 0)
+unable["command bar text padding"].Parent = unable["command bar"]
+
+unable["command bar"].Parent = unable["main frame"]
+unable["command bar"].ZIndex = 19
+unable["command bar"].Visible = false
+
+unable["command bar"].FocusLost:Connect(function(enterPressed)
+	if enterPressed then
+		local command = unable["command bar"].Text
+		unable["command bar"].Text = ""
+	end
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["execute command button"] = Instance.new("TextButton")
+
+unable["execute command button"].Size = UDim2.new(0, 45, 0, 45)
+unable["execute command button"].Position = UDim2.new(0, 352, 0, 201)
+
+unable["execute command button"].BackgroundColor3 = unable["default background color"]
+
+unable["execute command button"].BorderColor3 = unable["default border color"]
+unable["execute command button"].BorderSizePixel = 1
+
+unable["execute command button"].TextColor3 = unable["default border color"]
+unable["execute command button"].Font = Enum.Font.RobotoMono
+unable["execute command button"].TextSize = 15
+unable["execute command button"].TextScaled = false
+unable["execute command button"].Visible = false
+unable["execute command button"].Text = ">_"
+unable["execute command button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["execute command button"].TextYAlignment = Enum.TextYAlignment.Center
+
+unable["execute command button text padding"] = Instance.new("UIPadding")
+unable["execute command button text padding"].PaddingLeft = UDim.new(0, 0)
+unable["execute command button text padding"].Parent = unable["execute command button"]
+
+unable["execute command button"].Parent = unable["main frame"]
+unable["execute command button"].ZIndex = 19
+
+unable["execute command button"].MouseButton1Click:Connect(function()
+	unable["click sound"]:Play() unable["click sound 2"]:Play()
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -863,7 +1108,7 @@ unable["asset ids tab"].BorderColor3 = unable["default border color"]
 unable["asset ids tab"].BorderSizePixel = 1
 
 unable["asset ids tab"].TextColor3 = unable["default border color"]
-unable["asset ids tab"].Font = Enum.Font.Code
+unable["asset ids tab"].Font = Enum.Font.RobotoMono
 unable["asset ids tab"].TextSize = 15
 unable["asset ids tab"].TextScaled = false
 unable["asset ids tab"].Text = "asset IDs"
@@ -881,19 +1126,135 @@ unable["asset ids tab"].MouseButton1Click:Connect(function()
 	unable["click sound"]:Play() unable["click sound 2"]:Play()
 	unable["executor scrolling frame"].Visible = false
 	unable["execute button"].Visible = false
-	
+
 	unable["next page"].Visible = false
 	unable["button holder"].Visible = false
 	unable["previous page"].Visible = false
 	unable["button holder 2"].Visible = false
+	
+	unable["list of commands"].Visible = false
+	unable["command bar"].Visible = false
+	unable["execute command button"].Visible = false
+	
+	unable["asset id type indicator"].Visible = true
+	unable["next page 2 button"].Visible = true
+	unable["previous page 2 button"].Visible = true
+	unable["switch asset id type button"].Visible = true
+	unable["switch asset id type button 2"].Visible = true
 end)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["asset id type indicator"] = Instance.new("TextLabel")
+unable["asset id type indicator"].Size = UDim2.new(0, 344, 0, 20)
+unable["asset id type indicator"].Position = UDim2.new(0, 28, 0, 32)
+unable["asset id type indicator"].BackgroundColor3 = unable["default background color"]
+unable["asset id type indicator"].BorderColor3 = unable["default border color"]
+unable["asset id type indicator"].BorderSizePixel = 1
+unable["asset id type indicator"].TextColor3 = unable["default border color"]
+unable["asset id type indicator"].Font = Enum.Font.RobotoMono
+unable["asset id type indicator"].TextSize = 15
+unable["asset id type indicator"].TextScaled = false
+unable["asset id type indicator"].Text = " ~ MESH IDS ~"
+unable["asset id type indicator"].TextXAlignment = Enum.TextXAlignment.Center
+unable["asset id type indicator"].TextYAlignment = Enum.TextYAlignment.Center
+unable["asset id type indicator text padding"] = Instance.new("UIPadding")
+unable["asset id type indicator text padding"].PaddingLeft = UDim.new(0, 0)
+unable["asset id type indicator text padding"].Parent = unable["asset id type indicator"]
+unable["asset id type indicator"].Parent = unable["main frame"]
+unable["asset id type indicator"].ZIndex = 19
+unable["asset id type indicator"].Visible = false
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["switch asset id type button"] = Instance.new("TextButton")
+unable["switch asset id type button"].Size = UDim2.new(0, 19, 0, 20)
+unable["switch asset id type button"].Position = UDim2.new(0, 4, 0, 32)
+unable["switch asset id type button"].BackgroundColor3 = unable["default background color"]
+unable["switch asset id type button"].BorderColor3 = unable["default border color"]
+unable["switch asset id type button"].BorderSizePixel = 1
+unable["switch asset id type button"].TextColor3 = unable["default border color"]
+unable["switch asset id type button"].Font = Enum.Font.RobotoMono
+unable["switch asset id type button"].TextSize = 20
+unable["switch asset id type button"].TextScaled = false
+unable["switch asset id type button"].Text = "<"
+unable["switch asset id type button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["switch asset id type button"].TextYAlignment = Enum.TextYAlignment.Center
+unable["switch asset id type button"].Parent = unable["main frame"]
+unable["switch asset id type button"].ZIndex = 20
+unable["switch asset id type button"].Visible = false
+unable["switch asset id type button text padding"] = Instance.new("UIPadding")
+unable["switch asset id type button text padding"].PaddingTop = UDim.new(0, -4)
+unable["switch asset id type button text padding"].Parent = unable["switch asset id type button"]
+
+unable["switch asset id type button 2"] = Instance.new("TextButton")
+unable["switch asset id type button 2"].Size = UDim2.new(0, 20, 0, 20)
+unable["switch asset id type button 2"].Position = UDim2.new(0, 377, 0, 32)
+unable["switch asset id type button 2"].BackgroundColor3 = unable["default background color"]
+unable["switch asset id type button 2"].BorderColor3 = unable["default border color"]
+unable["switch asset id type button 2"].BorderSizePixel = 1
+unable["switch asset id type button 2"].TextColor3 = unable["default border color"]
+unable["switch asset id type button 2"].Font = Enum.Font.RobotoMono
+unable["switch asset id type button 2"].TextSize = 20
+unable["switch asset id type button 2"].TextScaled = false
+unable["switch asset id type button 2"].Text = ">"
+unable["switch asset id type button 2"].TextXAlignment = Enum.TextXAlignment.Center
+unable["switch asset id type button 2"].TextYAlignment = Enum.TextYAlignment.Center
+unable["switch asset id type button 2"].Parent = unable["main frame"]
+unable["switch asset id type button 2"].ZIndex = 20
+unable["switch asset id type button 2"].Visible = false
+unable["switch asset id type button 2 text padding"] = Instance.new("UIPadding")
+unable["switch asset id type button 2 text padding"].PaddingTop = UDim.new(0, -4)
+unable["switch asset id type button 2 text padding"].Parent = unable["switch asset id type button 2"]
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unable["next page 2 button"] = Instance.new("TextButton")
+unable["next page 2 button"].Size = UDim2.new(0, 19, 0, 189)
+unable["next page 2 button"].Position = UDim2.new(0, 4, 0, 57)
+unable["next page 2 button"].BackgroundColor3 = unable["default background color"]
+unable["next page 2 button"].BorderColor3 = unable["default border color"]
+unable["next page 2 button"].BorderSizePixel = 1
+unable["next page 2 button"].TextColor3 = unable["default border color"]
+unable["next page 2 button"].Font = Enum.Font.RobotoMono
+unable["next page 2 button"].TextSize = 20
+unable["next page 2 button"].TextScaled = false
+unable["next page 2 button"].Text = "<"
+unable["next page 2 button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["next page 2 button"].TextYAlignment = Enum.TextYAlignment.Center
+unable["next page 2 button"].Parent = unable["main frame"]
+unable["next page 2 button"].ZIndex = 20
+unable["next page 2 button"].Visible = false
+unable["next page 2 button text padding"] = Instance.new("UIPadding")
+unable["next page 2 button text padding"].PaddingTop = UDim.new(0, -4)
+unable["next page 2 button text padding"].Parent = unable["next page 2 button"]
+
+unable["previous page 2 button"] = Instance.new("TextButton")
+unable["previous page 2 button"].Size = UDim2.new(0, 20, 0, 189)
+unable["previous page 2 button"].Position = UDim2.new(0, 377, 0, 57)
+unable["previous page 2 button"].BackgroundColor3 = unable["default background color"]
+unable["previous page 2 button"].BorderColor3 = unable["default border color"]
+unable["previous page 2 button"].BorderSizePixel = 1
+unable["previous page 2 button"].TextColor3 = unable["default border color"]
+unable["previous page 2 button"].Font = Enum.Font.RobotoMono
+unable["previous page 2 button"].TextSize = 20
+unable["previous page 2 button"].TextScaled = false
+unable["previous page 2 button"].Text = ">"
+unable["previous page 2 button"].TextXAlignment = Enum.TextXAlignment.Center
+unable["previous page 2 button"].TextYAlignment = Enum.TextYAlignment.Center
+unable["previous page 2 button"].Parent = unable["main frame"]
+unable["previous page 2 button"].ZIndex = 20
+unable["previous page 2 button"].Visible = false
+unable["previous page 2 button text padding"] = Instance.new("UIPadding")
+unable["previous page 2 button text padding"].PaddingTop = UDim.new(0, -4)
+unable["previous page 2 button text padding"].Parent = unable["previous page 2 button"]
 
 -------------------------------------------------------------------------------------------------------------------------------
 
 unable["executor tab"] = Instance.new("TextButton")
 
 unable["executor tab"].Size = UDim2.new(0, 100, 0, 26)
-unable["executor tab"].Position = UDim2.new(0, 300, 0, 1)
+unable["executor tab"].Position = UDim2.new(0, 301, 0, 1)
 
 unable["executor tab"].BackgroundColor3 = unable["default background color"]
 
@@ -901,7 +1262,7 @@ unable["executor tab"].BorderColor3 = unable["default border color"]
 unable["executor tab"].BorderSizePixel = 1
 
 unable["executor tab"].TextColor3 = unable["default border color"]
-unable["executor tab"].Font = Enum.Font.Code
+unable["executor tab"].Font = Enum.Font.RobotoMono
 unable["executor tab"].TextSize = 15
 unable["executor tab"].TextScaled = false
 unable["executor tab"].Text = "executor"
@@ -919,23 +1280,34 @@ unable["executor tab"].MouseButton1Click:Connect(function()
 	unable["click sound"]:Play() unable["click sound 2"]:Play()
 	unable["executor scrolling frame"].Visible = true
 	unable["execute button"].Visible = true
-	
+
 	unable["next page"].Visible = false
 	unable["button holder"].Visible = false
 	unable["previous page"].Visible = false
 	unable["button holder 2"].Visible = false
+	
+	unable["list of commands"].Visible = false
+	unable["command bar"].Visible = false
+	unable["execute command button"].Visible = false
+	
+	unable["asset id type indicator"].Visible = false
+	unable["next page 2 button"].Visible = false
+	unable["previous page 2 button"].Visible = false
+	unable["switch asset id type button"].Visible = false
+	unable["switch asset id type button 2"].Visible = false
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------
 
 -- Create the ScrollingFrame
 unable["executor scrolling frame"] = Instance.new("ScrollingFrame")
-unable["executor scrolling frame"].Size = UDim2.new(0, 392, 0, 164)
+unable["executor scrolling frame"].Size = UDim2.new(0, 393, 0, 164)
 unable["executor scrolling frame"].Position = UDim2.new(0, 4, 0, 32)
 unable["executor scrolling frame"].BackgroundColor3 = unable["default background color"]
 unable["executor scrolling frame"].BorderColor3 = unable["default border color"]
 unable["executor scrolling frame"].BorderSizePixel = 1
 unable["executor scrolling frame"].ScrollBarThickness = 8
+unable["executor scrolling frame"].ScrollBarImageColor3 = unable["default 1/2 color"]
 unable["executor scrolling frame"].CanvasSize = UDim2.new(0, 0, 0, 0) -- Dynamically adjusted later
 unable["executor scrolling frame"].Parent = unable["main frame"]
 unable["executor scrolling frame"].ZIndex = 19
@@ -943,13 +1315,15 @@ unable["executor scrolling frame"].Visible = false
 
 -- Create the TextBox inside the ScrollingFrame
 unable["executor textbox"] = Instance.new("TextBox")
-unable["executor textbox"].Size = UDim2.new(0, 392, 0, 164) -- Initial size
+unable["executor textbox"].Size = UDim2.new(0, 393, 0, 164) -- Initial size
 unable["executor textbox"].Position = UDim2.new(0, 0, 0, 0)
 unable["executor textbox"].BackgroundColor3 = unable["default background color"]
 unable["executor textbox"].BorderColor3 = unable["default border color"]
 unable["executor textbox"].BorderSizePixel = 0
 unable["executor textbox"].TextColor3 = unable["default border color"]
-unable["executor textbox"].Font = Enum.Font.Code
+unable["executor textbox"].PlaceholderText = "paste script here"
+unable["executor textbox"].PlaceholderColor3 = unable["default 1/2 color"]
+unable["executor textbox"].Font = Enum.Font.RobotoMono
 unable["executor textbox"].TextSize = 15
 unable["executor textbox"].TextScaled = false
 unable["executor textbox"].Text = ""
@@ -982,7 +1356,7 @@ updateCanvas()
 
 unable["execute button"] = Instance.new("TextButton")
 
-unable["execute button"].Size = UDim2.new(0, 392, 0, 45)
+unable["execute button"].Size = UDim2.new(0, 393, 0, 45)
 unable["execute button"].Position = UDim2.new(0, 4, 0, 201)
 
 unable["execute button"].BackgroundColor3 = unable["default background color"]
@@ -991,7 +1365,7 @@ unable["execute button"].BorderColor3 = unable["default border color"]
 unable["execute button"].BorderSizePixel = 1
 
 unable["execute button"].TextColor3 = unable["default border color"]
-unable["execute button"].Font = Enum.Font.Code
+unable["execute button"].Font = Enum.Font.RobotoMono
 unable["execute button"].TextSize = 15
 unable["execute button"].TextScaled = false
 unable["execute button"].Text = "execute"
